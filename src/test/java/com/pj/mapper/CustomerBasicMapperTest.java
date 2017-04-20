@@ -8,7 +8,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.pj.pojo.OrderAddress;
+import com.pj.order.mapper.OrderAddressMapper;
+import com.pj.order.pojo.OrderAddress;
 
 /**
  *	@author		GFF

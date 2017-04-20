@@ -41,7 +41,7 @@
 	
 	<!-- 配置aop切面 -->
 	<aop:config>
-		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.pj.service.impl.*.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.pj.*.service.impl.*.*(..))"/>
 	</aop:config>
 
 </beans>

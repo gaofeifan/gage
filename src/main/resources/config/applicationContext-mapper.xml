@@ -59,6 +59,6 @@
 
 	<!-- 批量代理对象的管理 -->
 	<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.pj.mapper" />
+		<property name="basePackage" value="com.pj.*.mapper" />
 	</bean>
 </beans>
