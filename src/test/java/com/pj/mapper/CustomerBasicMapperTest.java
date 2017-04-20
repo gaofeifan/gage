@@ -1,7 +1,5 @@
 package com.pj.mapper;
 
-import static org.junit.Assert.*;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -32,6 +30,7 @@ public class CustomerBasicMapperTest {
 	public void test(){
 		OrderAddress record = new OrderAddress();
 		record.setName("xxx");
-		this.orderAddressMapper.insert(record );
+		this.orderAddressMapper.insert(record);
+		System.out.println(record.getId());
 	}
 }
