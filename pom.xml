@@ -426,9 +426,9 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 			<id>dev</id>
 			<properties>
 				<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-				<jdbc.url>jdbc:mysql://10.0.0.18:3306/oa</jdbc.url>
+				<jdbc.url>jdbc:mysql://192.168.4.209:3306/gage</jdbc.url>
 				<jdbc.username>root</jdbc.username>
-				<jdbc.password>root</jdbc.password>
+				<jdbc.password>111111</jdbc.password>
 				<redis.host>10.0.0.18</redis.host>
 				<redis.port>6379</redis.port>
 				<redis.pass>redis</redis.pass>
