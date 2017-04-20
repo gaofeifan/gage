@@ -346,14 +346,6 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 			<version>1.7.4</version>
 		</dependency>
 
-		<!-- 二维码 -->
-		<!-- <dependency> <groupId>com.swetake.util</groupId> <artifactId>QRCode</artifactId> 
-			<version>${QRCode.version}</version> </dependency> -->
-		<dependency>
-			<groupId>com.google.zxing</groupId>
-			<artifactId>core</artifactId>
-			<version>3.2.0</version>
-		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
@@ -380,14 +372,6 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 			<version>1.0.6</version>
 		</dependency>
 
-		<!-- GSON -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.6.2</version>
-		</dependency>
-		<!-- <dependency> <groupId>com.google.zxing</groupId> <artifactId>javase</artifactId> 
-			<version>3.0.0</version> </dependency> -->
 
 		<dependency>
 			<groupId>com.github.abel533</groupId>
