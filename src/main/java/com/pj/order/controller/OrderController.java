@@ -1,5 +1,6 @@
 package com.pj.order.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pj.config.base.BaseController;
@@ -17,6 +18,7 @@ import io.swagger.annotations.Api;
  */
 @Api(value="OrderAddressController", description="订单地址详情")
 @RequestMapping("/order")
+@Controller
 public class OrderController extends BaseController {
 
 }

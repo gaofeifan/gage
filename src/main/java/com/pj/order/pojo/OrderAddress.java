@@ -1,8 +1,10 @@
 package com.pj.order.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -24,6 +26,7 @@ public class OrderAddress implements Serializable{
 	 *	id 	
 	 */
 	@Id
+	@GeneratedValue(generator = "JDBC")
 	@ApiModelProperty(value = "id", required = false)
 	private Integer id;
 	
@@ -54,9 +57,21 @@ public class OrderAddress implements Serializable{
 	@Column
 	@ApiModelProperty(value = "备注", required = false)
 	private String remark;
+	
+	/**
+	 * 	创建时间
+	 */
+	@Column
+	@ApiModelProperty(value = "创建时间", required = false)
+	private Date createTime;
+	
+	/**
+	 * 	更新时间
+	 */
+	@Column
+	@ApiModelProperty(value = "更新时间", required = false)
+	private Date modifyTime;
 
-	
-	
 	public Integer getId() {
 		return id;
 	}
@@ -115,7 +130,23 @@ public class OrderAddress implements Serializable{
 		this.remark = remark;
 	}
 
+	public Date getCreateTime() {
+		return createTime;
+	}
 
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getModifyTime() {
+		return modifyTime;
+	}
+
+
+
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
+	}
 
 	@Override
 	public String toString() {

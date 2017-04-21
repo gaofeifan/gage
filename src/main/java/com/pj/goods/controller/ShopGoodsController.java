@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +27,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(value="ShopGoodsController", description="商品信息")
 @RequestMapping("/goods")
+@Controller
 public class ShopGoodsController extends BaseController {
 
 	@Resource

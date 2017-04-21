@@ -33,5 +33,8 @@ public class CustomerBasicMapperTest {
 		record.setName("xxx");
 		this.orderAddressMapper.insert(record);
 		System.out.println(record.getId());
+//		this.orderAddressMapper.insertSelective(record);
+//		this.orderAddressMapper.insertUseGeneratedKeys(record);
+//		this.orderAddressMapper.insertSelective(record);
 	}
 }

@@ -1,6 +1,7 @@
 package com.pj.customer.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -61,6 +62,20 @@ public class CustomerBasic implements Serializable {
     @Column
     @ApiModelProperty(value = "是否启用（0：是；1否）", required = false)
     private String flag;
+
+    /**
+	 * 	创建时间
+	 */
+	@Column
+	@ApiModelProperty(value = "创建时间", required = false)
+	private Date createTime;
+	
+	/**
+	 * 	更新时间
+	 */
+	@Column
+	@ApiModelProperty(value = "更新时间", required = false)
+	private Date modifyTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -136,7 +151,23 @@ public class CustomerBasic implements Serializable {
         this.flag = flag == null ? null : flag.trim();
     }
 
-    @Override
+    public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getModifyTime() {
+		return modifyTime;
+	}
+
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
+	}
+
+	@Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());

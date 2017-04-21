@@ -25,8 +25,8 @@ import io.swagger.annotations.ApiOperation;
  *	@parameter	
  *  @since		1.8
  */
+@Api(value="CustomerBasicController", description="用户基本信息",position=1)
 @Controller
-@Api(value="CustomerBasicController", description="用户基本信息")
 @RequestMapping("/customer")
 public class CustomerBasicController extends BaseController {
 
