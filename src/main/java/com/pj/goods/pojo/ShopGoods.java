@@ -8,10 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.pj.config.page.Page;
+
 import io.swagger.annotations.ApiModelProperty;
 
 @Table(name="shop_goods")
-public class ShopGoods implements Serializable {
+public class ShopGoods extends Page implements Serializable {
     @Id
     @ApiModelProperty(value = "id", required = false)
 	private Integer id;

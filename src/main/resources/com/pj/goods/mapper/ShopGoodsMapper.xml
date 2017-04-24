@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pj.goods.mapper.ShopGoodsMapper">
+	<select id="selectByInfo" parameterType="com.pj.goods.pojo.ShopGoods" resultType="com.pj.goods.pojo.ShopGoods">
+		SELECT * FROM shop_goods 
+		<where>
+			<if test="goodsName != null">
+				goods_name LIKE #{goodsName}
+			</if>
+			<if test="goodsType != null">
+				goods_type = #{goodsType}
+			</if>
+			<if test="priceMin != null">
+				goods_current_price >= #{priceMin}
+			</if>
+			<if test="priceMax != null">
+				goods_current_price &lt;= #{goodsName}
+			</if>
+		</where> 
+			ORDER BY create_time DESC
+			LIMIT #{startRow},#{pageSize}
+	</select>
+	<select id="selectByInfoCount" parameterType="com.pj.goods.pojo.ShopGoods" resultType="Integer">
+		SELECT COUNT(id) FROM shop_goods 
+		<where>
+			<if test="goodsName != null">
+				goods_name LIKE #{goodsName}
+			</if>
+			<if test="goodsType != null">
+				goods_type = #{goodsType}
+			</if>
+			<if test="priceMin != null">
+				goods_current_price >= #{priceMin}
+			</if>
+			<if test="priceMax != null">
+				goods_current_price &lt;= #{goodsName}
+			</if>
+		</where> 
+			ORDER BY create_time DESC
+	</select>
+</mapper>

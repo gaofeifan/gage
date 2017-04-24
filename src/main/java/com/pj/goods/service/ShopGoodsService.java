@@ -3,6 +3,7 @@ package com.pj.goods.service;
 import java.util.List;
 
 import com.pj.config.base.BaseService;
+import com.pj.config.page.Pagination;
 import com.pj.goods.pojo.ShopGoods;
 
 /**
@@ -22,8 +23,10 @@ public interface ShopGoodsService extends BaseService<ShopGoods, Integer> {
 	 * 	@param goodsType
 	 * 	@param priceMin
 	 * 	@param priceMax
+	 * @param pageNo 
 	 * 	@return
 	 */
-	public List<ShopGoods> selectByInfo(String goodsName, Integer goodsType, Integer priceMin, Integer priceMax);
+	public Pagination selectByInfo(String goodsName, Integer goodsType, Integer priceMin, Integer priceMax, Integer pageNo);
 
+	public List<ShopGoods> selectByInfo2(String goodsName, Integer goodsType, Integer priceMin, Integer priceMax ,Integer pageNo);
 }

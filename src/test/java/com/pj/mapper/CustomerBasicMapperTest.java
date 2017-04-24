@@ -1,5 +1,7 @@
 package com.pj.mapper;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -8,8 +10,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.pj.goods.pojo.ShopGoods;
+import com.pj.goods.service.ShopGoodsService;
 import com.pj.order.mapper.OrderAddressMapper;
 import com.pj.order.pojo.OrderAddress;
+import com.pj.order.service.OrderAddressService;
 
 /**
  *	@author		GFF
@@ -27,6 +32,12 @@ public class CustomerBasicMapperTest {
 	@Resource
 	private OrderAddressMapper orderAddressMapper;
 	
+	@Resource
+	private OrderAddressService orderAddressService;
+	
+	@Resource
+	private ShopGoodsService shopGoodsService;
+	
 	@Test
 	public void test(){
 		OrderAddress record = new OrderAddress();
@@ -36,5 +47,16 @@ public class CustomerBasicMapperTest {
 //		this.orderAddressMapper.insertSelective(record);
 //		this.orderAddressMapper.insertUseGeneratedKeys(record);
 //		this.orderAddressMapper.insertSelective(record);
+	}
+	
+	@Test
+	public void test1(){
+		List<ShopGoods> list = shopGoodsService.selectByInfo2(null, null, null, null, 2);
+		System.out.println(list);
+	}
+	@Test
+	public void test2(){
+		List<OrderAddress> list = orderAddressService.selectAll();
+		System.out.println(list);
 	}
 }

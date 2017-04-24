@@ -98,28 +98,6 @@ public class SimplePage implements java.io.Serializable,Paginable {
 		return pageNo >= getTotalPage();
 	}
 
-	/**
-	 * 下一页页码
-	 */
-	public int getNextPage() {
-		if (isLastPage()) {
-			return pageNo;
-		} else {
-			return pageNo + 1;
-		}
-	}
-
-	/**
-	 * 上一页页码
-	 */
-	public int getPrePage() {
-		if (isFirstPage()) {
-			return pageNo;
-		} else {
-			return pageNo - 1;
-		}
-	}
-
 	protected int totalCount = 0;
 	protected int pageSize = 20;
 	protected int pageNo = 1;

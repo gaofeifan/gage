@@ -19,7 +19,7 @@
 	<!-- <context:property-placeholder location="classpath:db.properties"/> -->
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations" >
+		<property name="locations">
 			<list>
 				<value>classpath:db.properties</value>
 				<value>classpath:redis.properties</value>
@@ -34,7 +34,7 @@
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 		<property name="validationQuery" value="SELECT 1" />
-    	<property name="testOnBorrow" value="true"/>
+		<property name="testOnBorrow" value="true" />
 	</bean>
 
 	<!-- SqlSessionFactory的管理 -->
@@ -43,18 +43,18 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- 加载mybatis的全局配置文件 -->
 		<property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml" />
-		<property name="typeAliasesPackage" value="com.pj.pojo"/>
-	  	<property name="plugins">
-		    <array>
-		      <bean class="com.github.pagehelper.PageHelper">
-		        <property name="properties">
-		          <value>
-		            dialect=hsqldb
-		          </value>
-		        </property>
-		      </bean>
-		    </array>
-	  	</property>
+		<property name="typeAliasesPackage" value="com.pj.*.pojo" />
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							dialect=hsqldb
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
 	</bean>
 
 	<!-- 批量代理对象的管理 -->

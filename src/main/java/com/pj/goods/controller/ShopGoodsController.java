@@ -1,6 +1,5 @@
 package com.pj.goods.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -10,13 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pj.config.base.BaseController;
+import com.pj.config.page.Pagination;
 import com.pj.goods.pojo.ShopGoods;
 import com.pj.goods.service.ShopGoodsService;
 
@@ -79,13 +78,13 @@ public class ShopGoodsController extends BaseController {
 	@RequestMapping(value="/selectByInfo",method=RequestMethod.GET)
 	@ResponseBody
 	@ApiOperation(value = "根据条件查询", httpMethod = "GET", response=Map.class, notes ="根据条件查询")
-	public Map<String,Object> selectByInfo(	@ModelAttribute ShopGoods shopGoods
+	public Map<String,Object> selectByInfo(	@ModelAttribute ShopGoods shopGoods , @RequestParam(value="pageNo",required=false) Integer pageNo
 										 /*@PathVariable("goodsName")String goodsName,
 									       @PathVariable("goodsType")Integer goodsType,
 									       @PathVariable("priceMin")Integer priceMin,
 									       @PathVariable("priceMax")Integer priceMax*/){
-		List<ShopGoods> list = this.shopGoodsService.selectByInfo(shopGoods.getGoodsName(),shopGoods.getGoodsType(),shopGoods.getPriceMin(),shopGoods.getPriceMax());
-		return this.success(list);
+		Pagination pagination = this.shopGoodsService.selectByInfo(shopGoods.getGoodsName(),shopGoods.getGoodsType(),shopGoods.getPriceMin(),shopGoods.getPriceMax(),pageNo);
+		return this.success(pagination);
 	}
 
 	/**

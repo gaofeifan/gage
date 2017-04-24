@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,8 +46,8 @@ public class CustomerShoppingCartController extends BaseController{
 	 * 	@return
 	 */
 	@ApiOperation(value = "添加购物车", httpMethod = "POST", response=Map.class, notes ="添加购物车")
-	@RequestMapping(value="/saveCustomerShoppingCart",method=RequestMethod.POST)
-	public @ResponseBody Map<String,Object> saveCustomerShoppingCart(CustomerShoppingCart customerShoppingCart){
+	@RequestMapping(value="/saveCustomerShoppingCart",method={RequestMethod.POST})
+	public @ResponseBody Map<String,Object> saveCustomerShoppingCart(@ModelAttribute("customerShoppingCart")CustomerShoppingCart customerShoppingCart){
 		customerShoppingCartService.insertSelective(customerShoppingCart);
 		return this.success(null);
 	}
