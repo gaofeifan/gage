@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pj.config.base.BaseController;
@@ -59,9 +60,9 @@ public class CustomerShoppingCartController extends BaseController{
 	 * 	@param customerShoppingCart
 	 * 	@return
 	 */
-	@ApiOperation(value = "更新购物车中的商品", httpMethod = "PUT", response=Map.class, notes ="更新购物车中的商品")
+	@ApiOperation(value = "更新购物车中的商品", httpMethod = "POST", response=Map.class, notes ="更新购物车中的商品")
 	@RequestMapping(value="/updateCustomerShoppingCart",method=RequestMethod.PUT)
-	public @ResponseBody Map<String,Object> updateCustomerShoppingCart(CustomerShoppingCart customerShoppingCart){
+	public @ResponseBody Map<String,Object> updateCustomerShoppingCart(@ModelAttribute("customerShoppingCart")CustomerShoppingCart customerShoppingCart){
 		this.customerShoppingCartService.updateByPrimaryKeySelective(customerShoppingCart);
 		return this.success(null);
 	}
@@ -93,10 +94,10 @@ public class CustomerShoppingCartController extends BaseController{
 	 * 	@param ids
 	 * 	@return
 	 */
-	@RequestMapping(value="/selectByIds/{ids}",method={RequestMethod.GET})
+	@RequestMapping(value="/selectByIds",method={RequestMethod.GET})
 	@ResponseBody
 	@ApiOperation(value = "根据id查询购物车", httpMethod = "GET", response=Map.class, notes ="根据id查询购物车")
-	public Map<String,Object> selectByIds(@PathVariable("ids") Integer[] ids){
+	public Map<String,Object> selectByIds(@RequestParam(value="ids") Integer[] ids){
 		List<CustomerShoppingCart> list = this.customerShoppingCartService.selectByIds(ids);
 		return this.success(list);
 	}

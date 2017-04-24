@@ -1,5 +1,6 @@
 package com.pj.order.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -43,5 +44,18 @@ public class OrderAddressController extends BaseController {
 	public @ResponseBody Map<String , Object> saveOrderAddress(OrderAddress orderAddress){
 		this.orderAddressService.insertSelective(orderAddress);
 		return this.success(orderAddress.getId());
+	}
+	
+	/**
+	 * 	查询所有的收获地址
+	 *	@author 	GFF
+	 *	@date		2017年4月24日下午2:57:01	
+	 * 	@return
+	 */
+	@ApiOperation(value = "查询收获地址", httpMethod = "GET", response=Map.class, notes ="添加订单的收获地址")
+	@RequestMapping(value="/selectOrderAddressAll",method=RequestMethod.GET)
+	public @ResponseBody Map<String , Object> selectOrderAddressAll(){
+		List<OrderAddress> list = this.orderAddressService.selectAll();
+		return this.success(list);
 	}
 }
