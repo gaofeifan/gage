@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.pj.goods.mapper.ShopGoodsMapper">
-	<select id="selectByInfo" parameterType="com.pj.goods.pojo.ShopGoods" resultType="com.pj.goods.pojo.ShopGoods">
-		SELECT * FROM shop_goods 
+<resultMap id="BaseResultMap" type="com.pj.goods.pojo.ShopGoods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_image_url" property="goodsImageUrl" jdbcType="VARCHAR" />
+    <result column="goods_total_num" property="goodsTotalNum" jdbcType="INTEGER" />
+    <result column="goods_type" property="goodsType" jdbcType="INTEGER" />
+    <result column="goods_barcode" property="goodsBarcode" jdbcType="VARCHAR" />
+    <result column="goods_original_cost" property="goodsOriginalCost" jdbcType="DECIMAL" />
+    <result column="goods_current_price" property="goodsCurrentPrice" jdbcType="DECIMAL" />
+    <result column="goods_details" property="goodsDetails" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="column_list">
+  	id,goods_name,goods_image_url,goods_total_num,goods_type,goods_barcode,goods_original_cost,goods_current_price,goods_details,create_time,modify_time
+  </sql>
+	<select id="selectByInfo" parameterType="com.pj.goods.pojo.ShopGoods" resultMap="BaseResultMap">
+		SELECT <include refid="column_list"/> FROM shop_goods 
 		<where>
 			<if test="goodsName != null">
 				goods_name LIKE #{goodsName}
