@@ -102,5 +102,9 @@ public class ShopGoodsController extends BaseController {
 		return this.success(shopGoods);
 	}
 	
+	@RequestMapping(value="index",method= RequestMethod.GET)
+	public String goodsInit(){
+		return "index";
+	}
 	
 }
