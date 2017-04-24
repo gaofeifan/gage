@@ -31,6 +31,12 @@ public class CustomerShoppingCartController extends BaseController{
 	@Resource
 	private CustomerShoppingCartService customerShoppingCartService;
 	
+	
+	@RequestMapping(value="/initShoppingCart")
+	public String initShoppingCart(){
+		return "customer/checkout";
+	}
+	
 	/**
 	 * 	添加购物车
 	 *	@author 	GFF
