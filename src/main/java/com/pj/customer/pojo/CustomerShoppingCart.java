@@ -65,6 +65,15 @@ public class CustomerShoppingCart implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
+	public CustomerShoppingCart() {}
+	
+	public CustomerShoppingCart(Integer customerId, Integer goodsId, Integer goodsNum) {
+		super();
+		this.customerId = customerId;
+		this.goodsId = goodsId;
+		this.goodsNum = goodsNum;
+	}
+
 	public Integer getId() {
 		return id;
 	}

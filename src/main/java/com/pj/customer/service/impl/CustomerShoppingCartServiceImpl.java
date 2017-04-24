@@ -37,6 +37,18 @@ public class CustomerShoppingCartServiceImpl extends AbstractHandleServiceImpl<C
 		return customerShoppingCartMapper;
 	}
 
+	@Override
+	public int insertSelective(CustomerShoppingCart t) {
+		List<CustomerShoppingCart> list = customerShoppingCartMapper.select(new CustomerShoppingCart(null, t.getGoodsId(), null));
+		CustomerShoppingCart cart = null;
+		if(list.size() > 0){
+			cart = list.get(0);
+			cart.setGoodsNum(cart.getGoodsNum()+1);
+			return super.updateByPrimaryKeySelective(cart);
+		}
+		return super.insertSelective(t);
+	}
+
 	/**
 	 * 	查询购物车中的商品
 	 */

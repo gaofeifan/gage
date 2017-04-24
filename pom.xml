@@ -290,6 +290,18 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 			<artifactId>persistence-api</artifactId>
 			<version>1.0</version>
 		</dependency>
+		<!--分页助手 -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>4.1.6</version>
+		</dependency>
+		 <dependency>
+            <groupId>com.github.jsqlparser</groupId>
+            <artifactId>jsqlparser</artifactId>
+            <version>0.9.5</version>
+        </dependency>
+
 		<!-- 日志 -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

@@ -47,13 +47,4 @@ public interface Paginable {
 	 */
 	public boolean isLastPage();
 
-	/**
-	 * 返回下页的页号
-	 */
-	public int getNextPage();
-
-	/**
-	 * 返回上页的页号
-	 */
-	public int getPrePage();
 }
