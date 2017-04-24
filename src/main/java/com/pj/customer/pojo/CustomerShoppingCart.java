@@ -6,6 +6,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.pj.goods.pojo.ShopGoods;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -54,11 +57,17 @@ public class CustomerShoppingCart implements Serializable {
 	@ApiModelProperty(value = "更新时间", required = false)
 	private Date modifyTime;
 
+	/**
+	 * 	商品
+	 */
+	@Transient
+	private ShopGoods shopGoods;
+	
+	private static final long serialVersionUID = 1L;
+
 	public Integer getId() {
 		return id;
 	}
-
-	private static final long serialVersionUID = 1L;
 
 	public void setId(Integer id) {
 		this.id = id;
@@ -102,6 +111,14 @@ public class CustomerShoppingCart implements Serializable {
 
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+
+	public ShopGoods getShopGoods() {
+		return shopGoods;
+	}
+
+	public void setShopGoods(ShopGoods shopGoods) {
+		this.shopGoods = shopGoods;
 	}
 
 }

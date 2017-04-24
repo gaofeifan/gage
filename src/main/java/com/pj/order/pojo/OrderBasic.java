@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -42,13 +43,6 @@ public class OrderBasic implements Serializable {
     private Integer isImport;
 
     /**
-     * 商品id
-     */
-    @Column
-    @ApiModelProperty(value = "商品id", required = false)
-    private Integer goodsId;
-
-    /**
      * 订单中商品的数量
      */
     @Column
@@ -66,6 +60,10 @@ public class OrderBasic implements Serializable {
     @ApiModelProperty(value = "订单修改时间", required = false)
     private Date modifyTime;
 
+    @Transient
+    @ApiModelProperty(value = "商品id", required = false)
+    private Integer[] shoppingCarts;
+    
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -108,14 +106,6 @@ public class OrderBasic implements Serializable {
         this.isImport = isImport;
     }
 
-    public Integer getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
-    }
-
     public Integer getGoodsNum() {
         return goodsNum;
     }
@@ -136,11 +126,19 @@ public class OrderBasic implements Serializable {
         return modifyTime;
     }
 
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
-    }
+	public Integer[] getShoppingCarts() {
+		return shoppingCarts;
+	}
 
-    @Override
+	public void setShoppingCarts(Integer[] shoppingCarts) {
+		this.shoppingCarts = shoppingCarts;
+	}
+
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
+	}
+
+	@Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
@@ -151,7 +149,6 @@ public class OrderBasic implements Serializable {
         sb.append(", customerId=").append(customerId);
         sb.append(", orderStatus=").append(orderStatus);
         sb.append(", isImport=").append(isImport);
-        sb.append(", goodsId=").append(goodsId);
         sb.append(", goodsNum=").append(goodsNum);
         sb.append(", createTime=").append(createTime);
         sb.append(", modifyTime=").append(modifyTime);

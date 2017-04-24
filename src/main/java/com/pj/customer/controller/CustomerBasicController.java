@@ -40,7 +40,7 @@ public class CustomerBasicController extends BaseController {
 	 * 	@param 		customerBasic
 	 * 	@return
 	 */
-	@RequestMapping("/add.do")
+	@RequestMapping("/add")
 	@ResponseBody
 	@ApiOperation(value = "添加", httpMethod = "POST", response=Map.class, notes ="添加")
 	public Map<String,Object> add(@ModelAttribute("customerBasic") CustomerBasic customerBasic){
@@ -55,7 +55,7 @@ public class CustomerBasicController extends BaseController {
 	 * 	@param 		customerBasic
 	 * 	@return
 	 */
-	@RequestMapping("/update.do")
+	@RequestMapping("/update")
 	@ResponseBody
 	@ApiOperation(value = "更新", httpMethod = "POST", response=Map.class, notes ="更新")
 	public Map<String,Object> update(@ModelAttribute("customerBasic") CustomerBasic customerBasic){
@@ -70,7 +70,7 @@ public class CustomerBasicController extends BaseController {
 	 * 	@param 		customerBasic
 	 * 	@return
 	 */
-	@RequestMapping("/select.do")
+	@RequestMapping("/select")
 	@ResponseBody
 	@ApiOperation(value = "根据条件查询", httpMethod = "POST", response=Map.class, notes ="根据条件查询")
 	public Map<String,Object> select(@ModelAttribute("customerBasic") CustomerBasic customerBasic){

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pj.config.base.MyMapper;
-import com.pj.config.base.impl.AbstractBaseServiceImpl;
+import com.pj.config.base.impl.AbstractHandleServiceImpl;
 import com.pj.order.mapper.OrderGoodsMapper;
 import com.pj.order.pojo.OrderGoods;
 import com.pj.order.service.OrderGoodsService;
@@ -20,7 +20,7 @@ import com.pj.order.service.OrderGoodsService;
  */
 @Service
 @Transactional
-public class OrderGoodsServiceImpl extends AbstractBaseServiceImpl<OrderGoods, Integer> implements OrderGoodsService {
+public class OrderGoodsServiceImpl extends AbstractHandleServiceImpl<OrderGoods, Integer> implements OrderGoodsService {
 
 	@Resource
 	private OrderGoodsMapper orderGoodsMapper;

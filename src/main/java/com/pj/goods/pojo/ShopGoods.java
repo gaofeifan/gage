@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -76,15 +77,29 @@ public class ShopGoods implements Serializable {
      */
     @Column
     @ApiModelProperty(value = "商品创建时间", required = false)
-    private Date goodsCreateTime;
+    private Date createTime;
 
     /**
      * 商品修改时间
      */
     @Column
     @ApiModelProperty(value = "商品修改时间", required = false)
-    private Date goodsModifyTime;
+    private Date modifyTime;
 
+    /**
+     * 	最低价(条件查询)
+     */
+    @Transient
+    @ApiModelProperty(value = "最低价", required = false)
+    private Integer priceMin;
+    
+    /**
+     * 	最高价(条件查询)
+     */
+    @Transient
+    @ApiModelProperty(value = "最高价", required = false)
+    private Integer priceMax;
+    
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -159,41 +174,45 @@ public class ShopGoods implements Serializable {
         this.goodsDetails = goodsDetails;
     }
 
-    public Date getGoodsCreateTime() {
-        return goodsCreateTime;
-    }
+    public Date getCreateTime() {
+		return createTime;
+	}
 
-    public void setGoodsCreateTime(Date goodsCreateTime) {
-        this.goodsCreateTime = goodsCreateTime;
-    }
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
-    public Date getGoodsModifyTime() {
-        return goodsModifyTime;
-    }
+	public Date getModifyTime() {
+		return modifyTime;
+	}
 
-    public void setGoodsModifyTime(Date goodsModifyTime) {
-        this.goodsModifyTime = goodsModifyTime;
-    }
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
+	}
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", goodsName=").append(goodsName);
-        sb.append(", goodsImageUrl=").append(goodsImageUrl);
-        sb.append(", goodsTotalNum=").append(goodsTotalNum);
-        sb.append(", goodsType=").append(goodsType);
-        sb.append(", goodsBarcode=").append(goodsBarcode);
-        sb.append(", goodsOriginalCost=").append(goodsOriginalCost);
-        sb.append(", goodsCurrentPrice=").append(goodsCurrentPrice);
-        sb.append(", goodsDetails=").append(goodsDetails);
-        sb.append(", goodsCreateTime=").append(goodsCreateTime);
-        sb.append(", goodsModifyTime=").append(goodsModifyTime);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
+	public Integer getPriceMin() {
+		return priceMin;
+	}
+
+	public void setPriceMin(Integer priceMin) {
+		this.priceMin = priceMin;
+	}
+
+	public Integer getPriceMax() {
+		return priceMax;
+	}
+
+	public void setPriceMax(Integer priceMax) {
+		this.priceMax = priceMax;
+	}
+
+	@Override
+	public String toString() {
+		return "ShopGoods [id=" + id + ", goodsName=" + goodsName + ", goodsImageUrl=" + goodsImageUrl
+				+ ", goodsTotalNum=" + goodsTotalNum + ", goodsType=" + goodsType + ", goodsBarcode=" + goodsBarcode
+				+ ", goodsOriginalCost=" + goodsOriginalCost + ", goodsCurrentPrice=" + goodsCurrentPrice
+				+ ", goodsDetails=" + goodsDetails + ", createTime=" + createTime + ", modifyTime=" + modifyTime
+				+ ", priceMin=" + priceMin + ", priceMax=" + priceMax + "]";
+	}
+
 }

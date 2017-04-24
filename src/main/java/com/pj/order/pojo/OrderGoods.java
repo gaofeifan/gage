@@ -69,6 +69,24 @@ public class OrderGoods implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
+	
+	public OrderGoods() {}
+	
+
+	public OrderGoods(Integer id, Integer order_id, Integer goods_id, Integer goods_num) {
+		this.order_id = order_id;
+		this.goods_id = goods_id;
+		this.goods_num = goods_num;
+	}
+
+	public OrderGoods(Integer id, Integer order_id, Integer goods_id, Integer goods_num, Double goods_price) {
+		this.id = id;
+		this.order_id = order_id;
+		this.goods_id = goods_id;
+		this.goods_num = goods_num;
+		this.goods_price = goods_price;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

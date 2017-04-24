@@ -164,6 +164,7 @@ public abstract class AbstractBaseServiceImpl<T,ID extends Serializable > implem
 	public AbstractBaseServiceImpl() {
 		ParameterizedType pt = (ParameterizedType)this.getClass().getGenericSuperclass();
 		clazz = (Class<T>) pt.getActualTypeArguments()[0];
+		
 	}
 	
 	private Class<T> clazz;

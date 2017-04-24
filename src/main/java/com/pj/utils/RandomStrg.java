@@ -14,6 +14,7 @@ import java.security.NoSuchProviderException;
  * Date: 2007-11-15
  * Time: 17:22:20
  */
+@SuppressWarnings("rawtypes")
 public class RandomStrg {
     private static Integer length = new Integer(8);
     public static void setLength(int count){ length =new Integer(count);}
@@ -22,7 +23,7 @@ public class RandomStrg {
     private static boolean allchars = false;
 
     private static HashMap hmap;
-    private static ArrayList lower = null;
+	private static ArrayList lower = null;
     private static ArrayList upper = null;
     private static char[] single = null;
     private static int singlecount = 0;
@@ -238,7 +239,8 @@ public class RandomStrg {
      * @return - randomly created string
      *
      */
-    public static String getRandom() {
+    @SuppressWarnings("unchecked")
+	public static String getRandom() {
 
         randomstr = new String();
 
@@ -336,7 +338,8 @@ public class RandomStrg {
         singles = true;  // set flag that single chars are in use
     }
 
-    public static void setCharset(String value)
+    @SuppressWarnings("unchecked")
+	public static void setCharset(String value)
     {
         // values tells the method whether or not to check for single chars
         boolean more = true;

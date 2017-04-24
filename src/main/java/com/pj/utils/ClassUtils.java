@@ -7,6 +7,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -99,17 +100,45 @@ public class ClassUtils {
 	 * 	@param asList		成员属性名称	
 	 * 	@param asList2		成员属性值
 	 */
-	public static <T> T setFieldValue(Class<T> clazz, List<String> fieldNames, List<Serializable> fieldValues) {
+	public static <T> T setFieldValue(Class<T> clazz, List<String> fieldNames, List<Serializable> list) {
 		try {
 			T t = clazz.newInstance();
 			for (int i = 0; i < fieldNames.size(); i++) {
 				Field field = clazz.getDeclaredField(fieldNames.get(i));
 				field.setAccessible(true);
-				field.set(t, fieldValues.get(i));
+				field.set(t, list.get(i));
 			}
 			return t;
 		} catch (InstantiationException e) {
 			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	/**
+	 * 	通过反射设置属性时间值
+	 *	@author 			GFF
+	 *	@date				2017年4月14日下午2:06:49	
+	 * 	@param clazz		对象
+	 * 	@param fieldNames   成员属性名称	
+	 * 	@param fieldValue   成员属性值
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T setFieldDateValue(T t, List<String> fieldNames, List<Date> fieldValue) {
+		Class<T> clazz = (Class<T>) t.getClass();
+		try {
+			for (int i = 0; i < fieldNames.size(); i++) {
+				Field field = clazz.getDeclaredField(fieldNames.get(i));
+				field.setAccessible(true);
+				field.set(t, fieldValue.get(i));
+			}
+			return t;
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (NoSuchFieldException e) {

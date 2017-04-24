@@ -4,10 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pj.config.base.BaseController;
@@ -40,10 +46,10 @@ public class ShopGoodsController extends BaseController {
 	 * 	@param 		shopGoods
 	 * 	@return
 	 */
-	@RequestMapping("/add.do")
+	@RequestMapping("/saveShopGoods")
 	@ResponseBody
 	@ApiOperation(value = "添加商品信息", httpMethod = "POST", response=Map.class, notes ="添加商品信息")
-	public Map<String,Object> add(@ModelAttribute("shopGoods") ShopGoods shopGoods){
+	public Map<String,Object> saveShopGoods(@ModelAttribute("shopGoods") ShopGoods shopGoods){
 		this.shopGoodsService.insertSelective(shopGoods);
 		return this.success(null);
 	}
@@ -55,10 +61,10 @@ public class ShopGoodsController extends BaseController {
 	 * 	@param 		shopGoods
 	 * 	@return
 	 */
-	@RequestMapping("/update.do")
+	@RequestMapping("/updateShopGoods/")
 	@ResponseBody
 	@ApiOperation(value = "更新商品信息", httpMethod = "POST", response=Map.class, notes ="更新商品信息")
-	public Map<String,Object> update(@ModelAttribute("shopGoods") ShopGoods shopGoods){
+	public Map<String,Object> updateShopGoods(@ModelAttribute ShopGoods shopGoods){
 		this.shopGoodsService.updateByPrimaryKeySelective(shopGoods);
 		return this.success(null);
 	}
@@ -70,12 +76,31 @@ public class ShopGoodsController extends BaseController {
 	 * 	@param 		shopGoods
 	 * 	@return
 	 */
-	@RequestMapping("/select.do")
+	@RequestMapping(value="/selectByInfo",method=RequestMethod.GET)
 	@ResponseBody
-	@ApiOperation(value = "根据条件查询", httpMethod = "POST", response=Map.class, notes ="根据条件查询")
-	public Map<String,Object> select(@ModelAttribute("shopGoods") ShopGoods shopGoods){
-		List<ShopGoods> list = this.shopGoodsService.select(shopGoods);
+	@ApiOperation(value = "根据条件查询", httpMethod = "GET", response=Map.class, notes ="根据条件查询")
+	public Map<String,Object> selectByInfo(	@ModelAttribute ShopGoods shopGoods
+										 /*@PathVariable("goodsName")String goodsName,
+									       @PathVariable("goodsType")Integer goodsType,
+									       @PathVariable("priceMin")Integer priceMin,
+									       @PathVariable("priceMax")Integer priceMax*/){
+		List<ShopGoods> list = this.shopGoodsService.selectByInfo(shopGoods.getGoodsName(),shopGoods.getGoodsType(),shopGoods.getPriceMin(),shopGoods.getPriceMax());
 		return this.success(list);
+	}
+
+	/**
+	 * 	查询商品详情
+	 *	@author 	GFF
+	 *	@date		2017年4月21日上午11:09:09	
+	 * 	@param 		id
+	 * 	@return
+	 */
+	@RequestMapping(value="/selectById",method={RequestMethod.GET}, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@ApiOperation(value = "根据id查询商品详情", httpMethod = "GET", response=Map.class, notes ="根据id查询商品详情")
+	public Map<String,Object> selectById(@RequestParam("id") Integer id,HttpServletRequest request,HttpServletResponse response){
+		ShopGoods shopGoods = this.shopGoodsService.selectByPrimaryKey(id);
+		return this.success(shopGoods);
 	}
 	
 	
