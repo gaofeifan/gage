@@ -55,6 +55,7 @@ public class OrderBasicServiceImpl extends AbstractHandleServiceImpl<OrderBasic,
 		List<CustomerShoppingCart> shoppingCarts = this.customerShoppingCartService.selectByIds(orderBasic.getShoppingCarts());
 		for (CustomerShoppingCart customerShoppingCart : shoppingCarts) {
 			this.orderGoodsService.insertSelective(new OrderGoods(null, orderBasic.getId(), customerShoppingCart.getGoodsId(), customerShoppingCart.getGoodsNum()));
+			this.customerShoppingCartService.delete(customerShoppingCart);
 		}
 		return i;
 	}
