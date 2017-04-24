@@ -104,13 +104,6 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 			<artifactId>mybatis-spring</artifactId>
 			<version>${org.mybatis-spring-version}</version>
 		</dependency>
-		<!--分页插件 -->
-		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper</artifactId>
-			<version>${pagehelper.version}</version>
-		</dependency>
-
 		<!-- 连接池 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -294,7 +287,7 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper</artifactId>
-			<version>4.1.6</version>
+			<version>${pagehelper.version}</version>
 		</dependency>
 		 <dependency>
             <groupId>com.github.jsqlparser</groupId>

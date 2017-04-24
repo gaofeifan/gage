@@ -100,11 +100,6 @@ public class ShopGoods implements Serializable {
 	@ApiModelProperty(value = "最高价", required = false)
 	private Integer priceMax;
 
-	private Integer pageNo = 1;
-
-	private Integer startRow;
-
-	private Integer pageSize = 10;
 	private static final long serialVersionUID = 1L;
 
 	public Integer getId() {
@@ -209,36 +204,6 @@ public class ShopGoods implements Serializable {
 
 	public void setPriceMax(Integer priceMax) {
 		this.priceMax = priceMax;
-	}
-
-	public void setPageNo(Integer pageNo) {
-		this.pageNo = pageNo;
-		if (pageNo != null) {
-			this.startRow = (pageNo - 1) * this.pageSize;
-		}
-	}
-
-	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
-		if (pageSize != null) {
-			this.startRow = (pageNo - 1) * this.pageSize;
-		}
-	}
-
-	public Integer getStartRow() {
-		return startRow;
-	}
-
-	public void setStartRow(Integer startRow) {
-		this.startRow = startRow;
-	}
-
-	public Integer getPageNo() {
-		return pageNo;
-	}
-
-	public Integer getPageSize() {
-		return pageSize;
 	}
 
 	@Override
