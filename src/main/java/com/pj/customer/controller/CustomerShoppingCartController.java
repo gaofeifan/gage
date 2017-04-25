@@ -61,7 +61,7 @@ public class CustomerShoppingCartController extends BaseController{
 	 * 	@return
 	 */
 	@ApiOperation(value = "更新购物车中的商品", httpMethod = "POST", response=Map.class, notes ="更新购物车中的商品")
-	@RequestMapping(value="/updateCustomerShoppingCart",method=RequestMethod.PUT)
+	@RequestMapping(value="/updateCustomerShoppingCart",method=RequestMethod.POST)
 	public @ResponseBody Map<String,Object> updateCustomerShoppingCart(@ModelAttribute("customerShoppingCart")CustomerShoppingCart customerShoppingCart){
 		this.customerShoppingCartService.updateByPrimaryKeySelective(customerShoppingCart);
 		return this.success(null);
