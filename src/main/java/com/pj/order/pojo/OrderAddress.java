@@ -72,6 +72,13 @@ public class OrderAddress implements Serializable{
 	@ApiModelProperty(value = "更新时间", required = false)
 	private Date modifyTime;
 
+	/**
+	 * 	购物车id
+	 */
+	@Column
+	@ApiModelProperty(value = "购物车id", required = false)
+	private Integer shoppingCartId;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -142,10 +149,16 @@ public class OrderAddress implements Serializable{
 		return modifyTime;
 	}
 
-
-
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+
+	public Integer getShoppingCartId() {
+		return shoppingCartId;
+	}
+
+	public void setShoppingCartId(Integer shoppingCartId) {
+		this.shoppingCartId = shoppingCartId;
 	}
 
 	@Override

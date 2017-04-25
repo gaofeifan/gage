@@ -2,11 +2,14 @@ package com.pj.order.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.pj.goods.pojo.ShopGoods;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -27,7 +30,14 @@ public class OrderBasic implements Serializable {
     @Column
     @ApiModelProperty(value = "customerId", required = false)
     private Integer customerId;
-
+    
+    /**
+     * 	订单地址
+     */
+    @Column
+    @ApiModelProperty(value = "订单地址", required = false)
+    private Integer orderAddressId;
+   
     /**
      * 订单状态(1：订单创建;）
      */
@@ -62,8 +72,14 @@ public class OrderBasic implements Serializable {
 
     @Transient
     @ApiModelProperty(value = "商品id", required = false)
-    private Integer[] shoppingCarts;
+    private Integer[] shopGoodsIds;
     
+    @Transient
+    private List<ShopGoods> shopGoods;
+    
+    @Transient
+    private OrderAddress orderAddress;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -126,16 +142,40 @@ public class OrderBasic implements Serializable {
         return modifyTime;
     }
 
-	public Integer[] getShoppingCarts() {
-		return shoppingCarts;
+	public Integer[] getShopGoodsIds() {
+		return shopGoodsIds;
 	}
 
-	public void setShoppingCarts(Integer[] shoppingCarts) {
-		this.shoppingCarts = shoppingCarts;
+	public void setShopGoodsIds(Integer[] shopGoodsIds) {
+		this.shopGoodsIds = shopGoodsIds;
 	}
 
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+
+	public List<ShopGoods> getShopGoods() {
+		return shopGoods;
+	}
+
+	public void setShopGoods(List<ShopGoods> shopGoods) {
+		this.shopGoods = shopGoods;
+	}
+	
+	public Integer getOrderAddressId() {
+		return orderAddressId;
+	}
+
+	public void setOrderAddressId(Integer orderAddressId) {
+		this.orderAddressId = orderAddressId;
+	}
+
+	public OrderAddress getOrderAddress() {
+		return orderAddress;
+	}
+
+	public void setOrderAddress(OrderAddress orderAddress) {
+		this.orderAddress = orderAddress;
 	}
 
 	@Override

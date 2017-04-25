@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pj.config.base.MyMapper;
-import com.pj.config.base.impl.AbstractHandleServiceImpl;
+import com.pj.config.base.impl.AbstractHandleTimeServiceImpl;
 import com.pj.customer.pojo.CustomerShoppingCart;
 import com.pj.customer.service.CustomerShoppingCartService;
+import com.pj.goods.pojo.ShopGoods;
+import com.pj.goods.service.ShopGoodsService;
 import com.pj.order.mapper.OrderBasicMapper;
+import com.pj.order.pojo.OrderAddress;
 import com.pj.order.pojo.OrderBasic;
 import com.pj.order.pojo.OrderGoods;
+import com.pj.order.service.OrderAddressService;
 import com.pj.order.service.OrderBasicService;
 import com.pj.order.service.OrderGoodsService;
 import com.pj.utils.RandomID;
@@ -27,7 +31,7 @@ import com.pj.utils.RandomID;
  */
 @Service
 @Transactional
-public class OrderBasicServiceImpl extends AbstractHandleServiceImpl<OrderBasic, Integer> implements OrderBasicService {
+public class OrderBasicServiceImpl extends AbstractHandleTimeServiceImpl<OrderBasic, Integer> implements OrderBasicService {
 
 	@Resource
 	private OrderBasicMapper orderBasicMapper;
@@ -36,7 +40,13 @@ public class OrderBasicServiceImpl extends AbstractHandleServiceImpl<OrderBasic,
 	private OrderGoodsService orderGoodsService; 
 	
 	@Resource
+	private ShopGoodsService shopGoodsService;
+	
+	@Resource
 	private CustomerShoppingCartService customerShoppingCartService;
+	
+	@Resource
+	private OrderAddressService orderAddressService;
 	
 	@Override
 	public MyMapper<OrderBasic> getMapper() {
@@ -44,20 +54,33 @@ public class OrderBasicServiceImpl extends AbstractHandleServiceImpl<OrderBasic,
 	}
 
 	/**
-	 * 	保存订单
+	 * 	查询订单详情
 	 */
 	@Override
-	public int insertSelective(OrderBasic orderBasic) {
-		//	设置订单编号
+	public OrderBasic selectOrderById(Integer orderId) {
+		OrderBasic orderBasic = this.orderBasicMapper.selectByPrimaryKey(orderId);
+		List<ShopGoods> shopGoods = this.shopGoodsService.selectShopGoodsByOderBasicId(orderBasic.getId());
+		orderBasic.setShopGoods(shopGoods);
+		OrderAddress orderAddress = this.orderAddressService.selectByPrimaryKey(orderBasic.getOrderAddressId());
+		orderBasic.setOrderAddress(orderAddress);
+		return orderBasic;
+	}
+	
+	/**
+	 * 	添加订单
+	 */
+	@Override
+	public void insertSelective(OrderBasic orderBasic, int cartId) {
+		// 设置订单编号
 		orderBasic.setOrderNo(new RandomID().GenTradeId());
-		int i = this.orderBasicMapper.insertSelective(orderBasic);
-		//	获取购物车中北被选中的商品
-		List<CustomerShoppingCart> shoppingCarts = this.customerShoppingCartService.selectByIds(orderBasic.getShoppingCarts());
-		for (CustomerShoppingCart customerShoppingCart : shoppingCarts) {
-			this.orderGoodsService.insertSelective(new OrderGoods(null, orderBasic.getId(), customerShoppingCart.getGoodsId(), customerShoppingCart.getGoodsNum()));
-			this.customerShoppingCartService.delete(customerShoppingCart);
+		this.orderBasicMapper.insertSelective(orderBasic);
+		List<ShopGoods> shopGoodss = this.shopGoodsService.selectShopGoodsByShoppingCartIdAndGoodsIds(new CustomerShoppingCart(cartId, null, orderBasic.getShopGoodsIds()));
+		for (ShopGoods shopGoods : shopGoodss) {
+			this.orderGoodsService.insertSelective(new OrderGoods(null, orderBasic.getId(), shopGoods.getId(), shopGoods.getGoodsNum()));
 		}
-		return i;
+		this.customerShoppingCartService.delete(new CustomerShoppingCart());
 	}
 
 }
+
+ 

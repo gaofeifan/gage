@@ -9,7 +9,7 @@ package com.pj.utils.enums;
  */
 public enum ExceptionEnum {
 
-	HANDLE_EXCEPTION("400" , "处理异常");
+	HANDLE_EXCEPTION("400" , "操作资源异常");
 	
 	private String code;
 	private String msg;

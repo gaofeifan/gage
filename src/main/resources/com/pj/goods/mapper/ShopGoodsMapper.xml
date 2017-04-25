@@ -14,6 +14,33 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
   </resultMap>
+<resultMap id="OrderGoodsResultMap" type="com.pj.goods.pojo.ShopGoods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_image_url" property="goodsImageUrl" jdbcType="VARCHAR" />
+    <result column="goods_num" property="goodsTotalNum" jdbcType="INTEGER" />
+    <result column="goods_type" property="goodsType" jdbcType="INTEGER" />
+    <result column="goods_barcode" property="goodsBarcode" jdbcType="VARCHAR" />
+    <result column="goods_original_cost" property="goodsOriginalCost" jdbcType="DECIMAL" />
+    <result column="goods_current_price" property="goodsCurrentPrice" jdbcType="DECIMAL" />
+    <result column="goods_details" property="goodsDetails" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+<resultMap id="ShoppingCartGoodsResultMap" type="com.pj.goods.pojo.ShopGoods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_image_url" property="goodsImageUrl" jdbcType="VARCHAR" />
+    <result column="goods_total_num" property="goodsTotalNum" jdbcType="INTEGER" />
+    <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+    <result column="goods_type" property="goodsType" jdbcType="INTEGER" />
+    <result column="goods_barcode" property="goodsBarcode" jdbcType="VARCHAR" />
+    <result column="goods_original_cost" property="goodsOriginalCost" jdbcType="DECIMAL" />
+    <result column="goods_current_price" property="goodsCurrentPrice" jdbcType="DECIMAL" />
+    <result column="goods_details" property="goodsDetails" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
   
   <sql id="column_list">
   	id,goods_name,goods_image_url,goods_total_num,goods_type,goods_barcode,goods_original_cost,goods_current_price,goods_details,create_time,modify_time
@@ -55,4 +82,60 @@
 		</where> 
 			ORDER BY create_time DESC
 	</select>
+	<select id="selectShopGoodsByOderBasicId" parameterType="int" resultMap="OrderGoodsResultMap">
+	SELECT
+		shopGoods.id,
+		shopGoods.goods_name,
+		shopGoods.goods_image_url,
+		orderGoods.goods_num,
+		shopGoods.goods_type,
+		shopGoods.goods_barcode,
+		shopGoods.goods_original_cost,
+		shopGoods.goods_current_price,
+		shopGoods.goods_details,
+		shopGoods.create_time
+	FROM
+		order_basic orderBasic
+	RIGHT JOIN order_goods orderGoods ON orderBasic.id = orderGoods.order_id
+	INNER JOIN shop_goods shopGoods ON orderGoods.goods_id = shopGoods.id
+	</select>
+	<select id="selectShopGoodsByShoppingCartId" resultMap="ShoppingCartGoodsResultMap" parameterType="int">
+	SELECT
+		shopGoods.id,
+		shopGoods.goods_barcode,
+		shopGoods.goods_current_price,
+		shopGoods.goods_details,
+		shopGoods.goods_image_url,
+		shopGoods.goods_name,
+		shopGoods.goods_total_num,
+		shopGoods.goods_type,
+		shopGoods.goods_original_cost,
+		shoppingCartGoods.goods_num
+	FROM
+	shop_goods shopGoods
+	INNER JOIN customer_shoppingcart_goods_concern shoppingCartGoods ON shopGoods.id = shoppingCartGoods.goods_id
+	where shoppingCartGoods.shop_cart_id = #{key}
+	</select>	
+	<select id="selectShopGoodsByShoppingCartIdAndGoodsIds" resultMap="ShoppingCartGoodsResultMap" parameterType="com.pj.customer.pojo.CustomerShoppingCart">
+	SELECT
+		shopGoods.id,
+		shopGoods.goods_barcode,
+		shopGoods.goods_current_price,
+		shopGoods.goods_details,
+		shopGoods.goods_image_url,
+		shopGoods.goods_name,
+		shopGoods.goods_total_num,
+		shopGoods.goods_type,
+		shopGoods.goods_original_cost,
+		shoppingCartGoods.goods_num
+	FROM
+		shop_goods shopGoods
+	INNER JOIN customer_shoppingcart_goods_concern shoppingcartGoods ON shoppingcartGoods.goods_id = shopGoods.id
+	WHERE
+		shoppingcartGoods.shop_cart_id = #{id}
+		AND shopGoods.id IN 
+		<foreach collection="goodsIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+	</select>	
 </mapper>

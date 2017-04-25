@@ -100,6 +100,12 @@ public class ShopGoods implements Serializable {
 	@ApiModelProperty(value = "最高价", required = false)
 	private Integer priceMax;
 
+	/**
+	 * 	商品购买的数量(返回给页面展示)
+	 */
+	@Transient
+	private Integer goodsNum;
+	
 	private static final long serialVersionUID = 1L;
 
 	public Integer getId() {
@@ -204,6 +210,14 @@ public class ShopGoods implements Serializable {
 
 	public void setPriceMax(Integer priceMax) {
 		this.priceMax = priceMax;
+	}
+
+	public Integer getGoodsNum() {
+		return goodsNum;
+	}
+
+	public void setGoodsNum(Integer goodsNum) {
+		this.goodsNum = goodsNum;
 	}
 
 	@Override
