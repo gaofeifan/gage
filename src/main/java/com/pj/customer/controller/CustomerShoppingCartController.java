@@ -34,7 +34,7 @@ public class CustomerShoppingCartController extends BaseController{
 	private CustomerShoppingCartService customerShoppingCartService;
 	
 	
-	@RequestMapping(value="/initShoppingCart")
+	@RequestMapping(value="/index")
 	public String initShoppingCart(){
 		return "customer/checkout";
 	}

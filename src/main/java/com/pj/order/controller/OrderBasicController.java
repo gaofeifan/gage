@@ -33,6 +33,11 @@ public class OrderBasicController extends BaseController {
 	@Resource
 	private OrderBasicService orderBasicService;
 	
+	@RequestMapping(value="index",method = RequestMethod.GET)
+	public String orderInit(){
+		return "order/orderBasic";
+	}
+	
 	@ApiOperation(value = "添加订单", httpMethod = "POST", response=Map.class, notes ="添加订单")
 	@RequestMapping(value="/saveOrderBasic",method=RequestMethod.POST)
 	public @ResponseBody Map<String,Object> saveOrderBasic(OrderBasic orderBasic){

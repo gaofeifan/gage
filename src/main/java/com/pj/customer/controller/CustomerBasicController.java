@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pj.config.base.BaseController;
@@ -76,6 +77,11 @@ public class CustomerBasicController extends BaseController {
 	public Map<String,Object> select(@ModelAttribute("customerBasic") CustomerBasic customerBasic){
 		List<CustomerBasic> list = this.customerBasicService.select(customerBasic);
 		return this.success(list);
+	}
+	
+	@RequestMapping(value="login",method=RequestMethod.GET)
+	public String customerLogin(){
+		return "login";
 	}
 	
 }
