@@ -15,6 +15,8 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.pj.config.poi.Excel;
+import com.pj.goods.pojo.ShopGoods;
+import com.pj.order.pojo.OrderAddress;
 import com.pj.order.pojo.OrderBasic;
 
 public class ExcleUtils {
@@ -119,7 +121,12 @@ public class ExcleUtils {
 	 * 	@param 		orderBasic			所需要写出到excel的结果集
 	 *  @return 	HSSFWorkbook	
 	 */
-	public static <T> HSSFWorkbook exportExcel2(Excel excel, OrderBasic orderBasic) {
+	public static <T> HSSFWorkbook exportOrder(Excel excel, OrderBasic orderBasic) {
+		List<String> orderBasics = excel.getHeaderMap().get("orderBasics");
+		List<String> orderAddress = excel.getHeaderMap().get("orderAddress");
+		List<String> shopGoods = excel.getHeaderMap().get("shopGoods");
+		OrderAddress orderAddres = orderBasic.getOrderAddress();
+		List<ShopGoods> shopGood = orderBasic.getShopGoods();
 		// 创建一个webbook，对应一个Excel文件
 		HSSFWorkbook wb = new HSSFWorkbook();
 		// 在webbook中添加一个sheet,对应Excel文件中的sheet
@@ -132,21 +139,39 @@ public class ExcleUtils {
 		HSSFCell cell = null;
 		//	设置标题内容
 		cell = row.createCell(0);
-		for (int i = 0; i < excel.getHeaders().length; i++) {
+		orderBasics.addAll(orderAddress);
+		for (int i = 0; i < orderBasics.size(); i++) {
 			cell = row.createCell(i);
-			cell.setCellValue(excel.getHeaders()[i]);
+			cell.setCellValue(orderBasics.get(i));
 			cell.setCellStyle(style);
 		}
-//		for (int y = 0; y < orderBasic.size(); y++) {
-//			row = sheet.createRow((int) y + 1);
-//			for (int i = 0; i < excel.getFields().length; i++) {
-//				if(orderBasic.get(y) instanceof Double){
-//					row.createCell(i).setCellValue(Double.parseDouble((String) orderBasic.get(y)));
-//				}else{
-//					row.createCell(i).setCellValue(orderBasic.get(y).toString());
-//				}
-//			}
-//		}
+		row = sheet.createRow(1);
+		row.createCell(1).setCellValue(orderBasic.getOrderNo());
+		row.createCell(2).setCellValue(orderBasic.getGoodsNum());
+		row.createCell(3).setCellValue(orderBasic.getCreateTime());
+		row.createCell(4).setCellValue(orderAddres.getName());
+		row.createCell(5).setCellValue(orderAddres.getPhone());
+		row.createCell(6).setCellValue(orderAddres.getAddressDesc());
+		row.createCell(7).setCellValue(orderAddres.getRemark());
+		
+		
+		row = sheet.createRow(4);
+		for (int i = 0; i < shopGoods.size(); i++) {
+			cell = row.createCell(i);
+			cell.setCellValue(orderBasics.get(i));
+			cell.setCellStyle(style);
+		}
+		for (int i = 0; i < shopGood.size(); i++) {
+			row = sheet.createRow(5+i);
+			row.createCell(1).setCellValue(shopGood.get(i).getGoodsName());
+			row.createCell(2).setCellValue(shopGood.get(i).getGoodsNum());
+			row.createCell(3).setCellValue(shopGood.get(i).getGoodsType());
+			row.createCell(4).setCellValue(shopGood.get(i).getGoodsBarcode());
+			row.createCell(5).setCellValue(shopGood.get(i).getGoodsOriginalCost());
+			row.createCell(6).setCellValue(shopGood.get(i).getGoodsCurrentPrice());
+			row.createCell(7).setCellValue(shopGood.get(i).getGoodsDetails());
+			
+		}
 		return wb;
 	}
 }

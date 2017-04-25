@@ -79,6 +79,13 @@ public class CustomerShoppingCart implements Serializable {
 		this.id = id;
 		this.customerId = customerId;
 	}
+	
+	public CustomerShoppingCart(Integer id, Integer customerId, Integer isEmpty) {
+		this.id = id;
+		this.customerId = customerId;
+		this.isEmpty = isEmpty;
+	}
+
 	public CustomerShoppingCart(Integer id, Integer customerId , Integer[] goodsIds) {
 		this.id = id;
 		this.customerId = customerId;

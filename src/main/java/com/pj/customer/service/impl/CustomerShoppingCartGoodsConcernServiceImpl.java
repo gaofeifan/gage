@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pj.config.base.MyMapper;
 import com.pj.config.base.impl.AbstractBaseServiceImpl;
 import com.pj.customer.mapper.CustomerShoppingCartGoodsConcernMapper;
+import com.pj.customer.mapper.CustomerShoppingCartMapper;
+import com.pj.customer.pojo.CustomerShoppingCart;
 import com.pj.customer.pojo.CustomerShoppingCartGoodsConcern;
 import com.pj.customer.service.CustomerShoppingCartGoodsConcernService;
 
@@ -30,6 +32,9 @@ public class CustomerShoppingCartGoodsConcernServiceImpl extends AbstractBaseSer
 	@Resource
 	private CustomerShoppingCartGoodsConcernMapper customerShoppingCartGoodsConcernMapper;
 	
+	@Resource
+	private CustomerShoppingCartMapper customerShoppingCartMapper;
+	
 	@Override
 	public MyMapper<CustomerShoppingCartGoodsConcern> getMapper() {
 		return customerShoppingCartGoodsConcernMapper;
@@ -46,7 +51,8 @@ public class CustomerShoppingCartGoodsConcernServiceImpl extends AbstractBaseSer
 			goodsConcern.setGoodsNum(t.getGoodsNum() + goodsConcern.getGoodsNum());
 			return this.customerShoppingCartGoodsConcernMapper.updateByPrimaryKeySelective(goodsConcern);
 		}
-		return super.insertSelective(t);
+		super.insertSelective(t);
+		return this.customerShoppingCartMapper.updateByPrimaryKeySelective(new CustomerShoppingCart(t.getShopCartId(), null, 1));
 	}
 
 	/**

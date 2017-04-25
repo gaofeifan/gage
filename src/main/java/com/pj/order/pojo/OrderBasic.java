@@ -30,7 +30,14 @@ public class OrderBasic implements Serializable {
     @Column
     @ApiModelProperty(value = "customerId", required = false)
     private Integer customerId;
-
+    
+    /**
+     * 	订单地址
+     */
+    @Column
+    @ApiModelProperty(value = "订单地址", required = false)
+    private Integer orderAddressId;
+   
     /**
      * 订单状态(1：订单创建;）
      */
@@ -69,6 +76,10 @@ public class OrderBasic implements Serializable {
     
     @Transient
     private List<ShopGoods> shopGoods;
+    
+    @Transient
+    private OrderAddress orderAddress;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -149,6 +160,22 @@ public class OrderBasic implements Serializable {
 
 	public void setShopGoods(List<ShopGoods> shopGoods) {
 		this.shopGoods = shopGoods;
+	}
+	
+	public Integer getOrderAddressId() {
+		return orderAddressId;
+	}
+
+	public void setOrderAddressId(Integer orderAddressId) {
+		this.orderAddressId = orderAddressId;
+	}
+
+	public OrderAddress getOrderAddress() {
+		return orderAddress;
+	}
+
+	public void setOrderAddress(OrderAddress orderAddress) {
+		this.orderAddress = orderAddress;
 	}
 
 	@Override

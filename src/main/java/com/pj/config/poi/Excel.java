@@ -1,8 +1,8 @@
 package com.pj.config.poi;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *	@author		GFF
@@ -26,14 +26,14 @@ public class Excel {
 	/**
 	 * 	多行标题
 	 */
-	private List<List<String>> headersMuch = new ArrayList<>();
+	private Map<String , List<String>> headerMap;
 	
 	/**
 	 * 	对应的字段
 	 */
 	Field[] fields;
 	
-	public Excel() {
+	public Excel(String string, Map<String, List<String>> map, Object object) {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -43,6 +43,11 @@ public class Excel {
 		this.fileName = fileName;
 		this.headers = headers;
 		this.fields = fields;
+	}
+
+	public Excel(String fileName, Map<String, List<String>> headerMap) {
+		this.fileName = fileName;
+		this.headerMap = headerMap;
 	}
 
 	public String getFileName() {
@@ -69,11 +74,12 @@ public class Excel {
 		this.fields = fields;
 	}
 
-	public List<List<String>> getHeadersMuch() {
-		return headersMuch;
+	public Map<String, List<String>> getHeaderMap() {
+		return headerMap;
 	}
 
-	public void setHeadersMuch(List<List<String>> headersMuch) {
-		this.headersMuch = headersMuch;
+	public void setHeaderMap(Map<String, List<String>> headerMap) {
+		this.headerMap = headerMap;
 	}
+
 }

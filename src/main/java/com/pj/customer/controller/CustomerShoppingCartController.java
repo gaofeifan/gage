@@ -43,6 +43,7 @@ public class CustomerShoppingCartController extends BaseController{
 	}
 	
 	public static final Integer customerId = 1;
+	
 	/**
 	 * 	给购物车添加商品
 	 *	@author 	GFF

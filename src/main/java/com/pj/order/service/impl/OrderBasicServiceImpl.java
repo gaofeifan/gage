@@ -14,8 +14,10 @@ import com.pj.customer.service.CustomerShoppingCartService;
 import com.pj.goods.pojo.ShopGoods;
 import com.pj.goods.service.ShopGoodsService;
 import com.pj.order.mapper.OrderBasicMapper;
+import com.pj.order.pojo.OrderAddress;
 import com.pj.order.pojo.OrderBasic;
 import com.pj.order.pojo.OrderGoods;
+import com.pj.order.service.OrderAddressService;
 import com.pj.order.service.OrderBasicService;
 import com.pj.order.service.OrderGoodsService;
 import com.pj.utils.RandomID;
@@ -43,6 +45,9 @@ public class OrderBasicServiceImpl extends AbstractHandleTimeServiceImpl<OrderBa
 	@Resource
 	private CustomerShoppingCartService customerShoppingCartService;
 	
+	@Resource
+	private OrderAddressService orderAddressService;
+	
 	@Override
 	public MyMapper<OrderBasic> getMapper() {
 		return orderBasicMapper;
@@ -56,6 +61,8 @@ public class OrderBasicServiceImpl extends AbstractHandleTimeServiceImpl<OrderBa
 		OrderBasic orderBasic = this.orderBasicMapper.selectByPrimaryKey(orderId);
 		List<ShopGoods> shopGoods = this.shopGoodsService.selectShopGoodsByOderBasicId(orderBasic.getId());
 		orderBasic.setShopGoods(shopGoods);
+		OrderAddress orderAddress = this.orderAddressService.selectByPrimaryKey(orderBasic.getOrderAddressId());
+		orderBasic.setOrderAddress(orderAddress);
 		return orderBasic;
 	}
 	
@@ -71,7 +78,7 @@ public class OrderBasicServiceImpl extends AbstractHandleTimeServiceImpl<OrderBa
 		for (ShopGoods shopGoods : shopGoodss) {
 			this.orderGoodsService.insertSelective(new OrderGoods(null, orderBasic.getId(), shopGoods.getId(), shopGoods.getGoodsNum()));
 		}
-		this.shopGoodsService.delete(new ShopGoods());
+		this.customerShoppingCartService.delete(new CustomerShoppingCart());
 	}
 
 }

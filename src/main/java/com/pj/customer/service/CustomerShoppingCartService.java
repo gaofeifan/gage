@@ -1,10 +1,7 @@
 package com.pj.customer.service;
 
-import java.util.List;
-
 import com.pj.config.base.BaseService;
 import com.pj.customer.pojo.CustomerShoppingCart;
-import com.pj.goods.pojo.ShopGoods;
 
 /**
  *	@author		GFF
