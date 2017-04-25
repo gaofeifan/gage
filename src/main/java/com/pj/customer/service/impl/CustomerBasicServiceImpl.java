@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pj.config.base.MyMapper;
-import com.pj.config.base.impl.AbstractHandleServiceImpl;
+import com.pj.config.base.impl.AbstractHandleTimeServiceImpl;
 import com.pj.customer.mapper.CustomerBasicMapper;
 import com.pj.customer.pojo.CustomerBasic;
 import com.pj.customer.service.CustomerBasicService;
@@ -20,7 +20,7 @@ import com.pj.customer.service.CustomerBasicService;
  */
 @Service
 @Transactional
-public class CustomerBasicServiceImpl extends AbstractHandleServiceImpl<CustomerBasic, Integer> implements CustomerBasicService {
+public class CustomerBasicServiceImpl extends AbstractHandleTimeServiceImpl<CustomerBasic, Integer> implements CustomerBasicService {
 
 	@Resource
 	private CustomerBasicMapper customerBasicMapper;

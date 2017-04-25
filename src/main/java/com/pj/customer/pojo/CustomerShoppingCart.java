@@ -2,8 +2,10 @@ package com.pj.customer.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -23,6 +25,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class CustomerShoppingCart implements Serializable {
 
 	@Id
+	@GeneratedValue(generator = "JDBC")
 	private Integer id;
 
 	/**
@@ -32,17 +35,19 @@ public class CustomerShoppingCart implements Serializable {
 	private Integer customerId;
 
 	/**
-	 * 商品id
+	 * 	购物车名称
 	 */
 	@Column
-	private Integer goodsId;
-
+	@ApiModelProperty(value = "购物车名称", required = false)
+	private String shoppingCartName;
+	
 	/**
-	 * 商品数量
+	 * 	是否为空
 	 */
 	@Column
-	private Integer goodsNum;
-
+	@ApiModelProperty(value = "是否为空", required = false)
+	 private Integer isEmpty;
+	 
 	/**
 	 * 创建时间
 	 */
@@ -61,17 +66,23 @@ public class CustomerShoppingCart implements Serializable {
 	 * 	商品
 	 */
 	@Transient
-	private ShopGoods shopGoods;
+	private List<ShopGoods> shopGoods;
+	
+	@Transient
+	private Integer[] goodsIds;
 	
 	private static final long serialVersionUID = 1L;
 
 	public CustomerShoppingCart() {}
 	
-	public CustomerShoppingCart(Integer customerId, Integer goodsId, Integer goodsNum) {
-		super();
+	public CustomerShoppingCart(Integer id, Integer customerId) {
+		this.id = id;
 		this.customerId = customerId;
-		this.goodsId = goodsId;
-		this.goodsNum = goodsNum;
+	}
+	public CustomerShoppingCart(Integer id, Integer customerId , Integer[] goodsIds) {
+		this.id = id;
+		this.customerId = customerId;
+		this.goodsIds = goodsIds;
 	}
 
 	public Integer getId() {
@@ -90,22 +101,6 @@ public class CustomerShoppingCart implements Serializable {
 		this.customerId = customerId;
 	}
 
-	public Integer getGoodsId() {
-		return goodsId;
-	}
-
-	public void setGoodsId(Integer goodsId) {
-		this.goodsId = goodsId;
-	}
-
-	public Integer getGoodsNum() {
-		return goodsNum;
-	}
-
-	public void setGoodsNum(Integer goodsNum) {
-		this.goodsNum = goodsNum;
-	}
-
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -122,12 +117,37 @@ public class CustomerShoppingCart implements Serializable {
 		this.modifyTime = modifyTime;
 	}
 
-	public ShopGoods getShopGoods() {
+	public String getShoppingCartName() {
+		return shoppingCartName;
+	}
+
+	public void setShoppingCartName(String shoppingCartName) {
+		this.shoppingCartName = shoppingCartName;
+	}
+
+	public Integer getIsEmpty() {
+		return isEmpty;
+	}
+
+	public void setIsEmpty(Integer isEmpty) {
+		this.isEmpty = isEmpty;
+	}
+
+	public List<ShopGoods> getShopGoods() {
 		return shopGoods;
 	}
 
-	public void setShopGoods(ShopGoods shopGoods) {
+	public void setShopGoods(List<ShopGoods> shopGoods) {
 		this.shopGoods = shopGoods;
 	}
 
+	public Integer[] getGoodsIds() {
+		return goodsIds;
+	}
+
+	public void setGoodsIds(Integer[] goodsIds) {
+		this.goodsIds = goodsIds;
+	}
+
+	
 }

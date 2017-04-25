@@ -9,10 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pj.config.base.MyMapper;
-import com.pj.config.base.impl.AbstractHandleServiceImpl;
+import com.pj.config.base.impl.AbstractHandleTimeServiceImpl;
 import com.pj.customer.mapper.CustomerShoppingCartMapper;
 import com.pj.customer.pojo.CustomerShoppingCart;
 import com.pj.customer.service.CustomerShoppingCartService;
+import com.pj.goods.pojo.ShopGoods;
 import com.pj.goods.service.ShopGoodsService;
 
 /**
@@ -24,7 +25,7 @@ import com.pj.goods.service.ShopGoodsService;
  */
 @Service
 @Transactional
-public class CustomerShoppingCartServiceImpl extends AbstractHandleServiceImpl<CustomerShoppingCart, Integer> implements CustomerShoppingCartService {
+public class CustomerShoppingCartServiceImpl extends AbstractHandleTimeServiceImpl<CustomerShoppingCart, Integer> implements CustomerShoppingCartService {
 
 	@Resource
 	private CustomerShoppingCartMapper customerShoppingCartMapper;
@@ -37,40 +38,28 @@ public class CustomerShoppingCartServiceImpl extends AbstractHandleServiceImpl<C
 		return customerShoppingCartMapper;
 	}
 
-	@Override
-	public int insertSelective(CustomerShoppingCart t) {
-		List<CustomerShoppingCart> list = customerShoppingCartMapper.select(new CustomerShoppingCart(null, t.getGoodsId(), null));
-		CustomerShoppingCart cart = null;
-		if(list.size() > 0){
-			cart = list.get(0);
-			cart.setGoodsNum(cart.getGoodsNum()+1);
-			return super.updateByPrimaryKeySelective(cart);
-		}
-		return super.insertSelective(t);
-	}
 
 	/**
 	 * 	查询购物车中的商品
 	 */
 	@Override
-	public List<CustomerShoppingCart> selectAll() {
-		List<CustomerShoppingCart> list = this.customerShoppingCartMapper.selectAll();
-		for (CustomerShoppingCart customerShoppingCart : list) {
-			customerShoppingCart.setShopGoods(this.shopGoodsService.selectByPrimaryKey(customerShoppingCart.getGoodsId()));
-		}
-		return list;
+	public CustomerShoppingCart selectByPrimaryKey(Integer key) {
+		CustomerShoppingCart shoppingCart = customerShoppingCartMapper.selectByPrimaryKey(key);
+		List<ShopGoods> shopGoods = this.shopGoodsService.selectShopGoodsByShoppingCartId(key);
+		shoppingCart.setShopGoods(shopGoods);
+		return shoppingCart;
 	}
 
+	/**
+	 * 	查询购物车中被选中的商品
+	 */
 	@Override
-	public List<CustomerShoppingCart> selectByIds(Integer[] ids) {
-		List<CustomerShoppingCart> customerShoppingCarts = new ArrayList<>();
-		for (Integer id : ids) {
-			CustomerShoppingCart customerShoppingCart = this.customerShoppingCartMapper.selectByPrimaryKey(id);
-			customerShoppingCart.setShopGoods(this.shopGoodsService.selectByPrimaryKey(customerShoppingCart.getGoodsId()));
-			customerShoppingCarts.add(customerShoppingCart);
-		}
-		return customerShoppingCarts;
+	public CustomerShoppingCart selectByShoppingCartAndGoodsIds(int cartId, Integer[] ids) {
+		CustomerShoppingCart customerShoppingCart = this.customerShoppingCartMapper.selectByPrimaryKey(cartId);
+		List<ShopGoods> shopGoods = this.shopGoodsService.selectShopGoodsByShoppingCartIdAndGoodsIds(new CustomerShoppingCart(cartId, null,ids));
+		customerShoppingCart.setShopGoods(shopGoods);
+		return customerShoppingCart;
 	}
-	
+
 
 }

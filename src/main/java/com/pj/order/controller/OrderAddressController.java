@@ -6,8 +6,10 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pj.config.base.BaseController;
@@ -41,7 +43,7 @@ public class OrderAddressController extends BaseController {
 	 */
 	@ApiOperation(value = "添加订单的收获地址", httpMethod = "POST", response=Map.class, notes ="添加订单的收获地址")
 	@RequestMapping(value="/saveOrderAddress",method=RequestMethod.POST)
-	public @ResponseBody Map<String , Object> saveOrderAddress(OrderAddress orderAddress){
+	public @ResponseBody Map<String , Object> saveOrderAddress(@ModelAttribute("orderAddress")OrderAddress orderAddress){
 		this.orderAddressService.insertSelective(orderAddress);
 		return this.success(orderAddress.getId());
 	}
@@ -52,10 +54,38 @@ public class OrderAddressController extends BaseController {
 	 *	@date		2017年4月24日下午2:57:01	
 	 * 	@return
 	 */
-	@ApiOperation(value = "查询收获地址", httpMethod = "GET", response=Map.class, notes ="添加订单的收获地址")
+	@ApiOperation(value = "查询收获地址", httpMethod = "GET", response=Map.class, notes ="查询收获地址")
 	@RequestMapping(value="/selectOrderAddressAll",method=RequestMethod.GET)
 	public @ResponseBody Map<String , Object> selectOrderAddressAll(){
 		List<OrderAddress> list = this.orderAddressService.selectAll();
 		return this.success(list);
 	}
+	
+	/**
+	 * 	根据id查询地址
+	 *	@author 	GFF
+	 *	@date		2017年4月24日下午2:57:01	
+	 * 	@return
+	 */
+	@ApiOperation(value = "查询收获地址", httpMethod = "GET", response=Map.class, notes ="查询收获地址")
+	@RequestMapping(value="/selectOrderAddressById",method=RequestMethod.GET)
+	public @ResponseBody Map<String , Object> selectOrderAddressById(@RequestParam("id") Integer id){
+		OrderAddress orderAddress = this.orderAddressService.selectByPrimaryKey(id);
+		return this.success(orderAddress);
+	}
+
+	/**
+	 * 	更新订单地址
+	 *	@author 	GFF
+	 *	@date		2017年4月24日下午2:57:01	
+	 * 	@return
+	 */
+	@ApiOperation(value = "更新订单地址", httpMethod = "POST", response=Map.class, notes ="更新订单地址")
+	@RequestMapping(value="/updateOrderAddressById",method=RequestMethod.POST)
+	public @ResponseBody Map<String , Object> updateOrderAddressById(@ModelAttribute("orderAddress")OrderAddress orderAddress){
+		this.orderAddressService.updateByPrimaryKeySelective(orderAddress);
+		return this.success(null);
+	}
+	
+	
 }

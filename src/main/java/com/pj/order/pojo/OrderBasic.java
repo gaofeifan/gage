@@ -2,11 +2,14 @@ package com.pj.order.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.pj.goods.pojo.ShopGoods;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -62,8 +65,10 @@ public class OrderBasic implements Serializable {
 
     @Transient
     @ApiModelProperty(value = "商品id", required = false)
-    private Integer[] shoppingCarts;
+    private Integer[] shopGoodsIds;
     
+    @Transient
+    private List<ShopGoods> shopGoods;
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -126,16 +131,24 @@ public class OrderBasic implements Serializable {
         return modifyTime;
     }
 
-	public Integer[] getShoppingCarts() {
-		return shoppingCarts;
+	public Integer[] getShopGoodsIds() {
+		return shopGoodsIds;
 	}
 
-	public void setShoppingCarts(Integer[] shoppingCarts) {
-		this.shoppingCarts = shoppingCarts;
+	public void setShopGoodsIds(Integer[] shopGoodsIds) {
+		this.shopGoodsIds = shopGoodsIds;
 	}
 
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+
+	public List<ShopGoods> getShopGoods() {
+		return shopGoods;
+	}
+
+	public void setShopGoods(List<ShopGoods> shopGoods) {
+		this.shopGoods = shopGoods;
 	}
 
 	@Override

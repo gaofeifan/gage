@@ -32,7 +32,8 @@
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-
+	 <!-- 全局异常处理 -->
+    <bean id="exceptionResolver" class="com.pj.config.exception.ExceptionHandler"/>
 	<!-- 配置转换器 -->
 	<bean id="conversionService"
 		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">

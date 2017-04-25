@@ -1,5 +1,6 @@
 package com.pj.order.controller;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -10,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pj.config.base.BaseController;
+import com.pj.customer.controller.CustomerShoppingCartController;
+import com.pj.customer.pojo.CustomerShoppingCart;
 import com.pj.order.pojo.OrderBasic;
 import com.pj.order.service.OrderBasicService;
+import com.pj.utils.ExcleUtils;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,9 +40,19 @@ public class OrderBasicController extends BaseController {
 	@ApiOperation(value = "添加订单", httpMethod = "POST", response=Map.class, notes ="添加订单")
 	@RequestMapping(value="/saveOrderBasic",method=RequestMethod.POST)
 	public @ResponseBody Map<String,Object> saveOrderBasic(OrderBasic orderBasic){
-		this.orderBasicService.insertSelective(orderBasic);
+		CustomerShoppingCartController shoppingCartController = new CustomerShoppingCartController();
+		int cartId = shoppingCartController.getShoppingCartByCustomerId(CustomerShoppingCartController.customerId);
+		this.orderBasicService.insertSelective(orderBasic,cartId);
+		return this.success(null);
+	}
+
+	@ApiOperation(value = "导出订单详情", httpMethod = "POST", response=Map.class, notes ="添加订单")
+	@RequestMapping(value="/exportOrderExcel",method=RequestMethod.POST)
+	public @ResponseBody Map<String,Object> exportOrderExcel(Integer orderId){
+		OrderBasic orderBasic = this.orderBasicService.selectOrderById(orderId);
+		Arrays.asList("订单编号","");
+		ExcleUtils.exportExcel2(null, orderBasic);
 		return null;
-		
 	}
 	
 }

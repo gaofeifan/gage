@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.pj.config.base.BaseService;
 import com.pj.customer.pojo.CustomerShoppingCart;
+import com.pj.goods.pojo.ShopGoods;
 
 /**
  *	@author		GFF
@@ -21,7 +22,7 @@ public interface CustomerShoppingCartService extends BaseService<CustomerShoppin
 	 * 	@param ids
 	 * 	@return
 	 */
-	List<CustomerShoppingCart> selectByIds(Integer[] ids);
+	CustomerShoppingCart selectByShoppingCartAndGoodsIds(int cartId, Integer[] ids);
 
 
 }
