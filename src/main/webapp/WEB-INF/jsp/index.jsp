@@ -67,8 +67,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<div class="col-sm-8 h_menu4">
 					<ul class="memenu skyblue">
-						<li class=" grid"><a href="http://localhost:8080/gage/goods/index.do">主页</a></li>
-						<li><a href="http://localhost:8080/gage/shoppingCart/initShoppingCart.do">我的购物车</a></li>
+						<li class=" grid"><a href="http://localhost:8080/gage/goods/index">主页</a></li>
+						<li><a href="http://localhost:8080/gage/shoppingCart/initShoppingCart">我的购物车</a></li>
 						<li class="grid"><a href="#">我的订单</a></li>
 
 					</ul>
@@ -128,12 +128,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		var app = angular.module('declare', []);
 
 		app.controller('declareController', function($scope, $http) {
-			//$scope.sumGoods = ["1","2","3","4","5","6","7","8","9","11","12","13"];
 			$http({
 				method : 'GET',
 				url : 'http://localhost:8080/gage/goods/selectByInfo'
 			}).then(function successCallback(response) {
-				$scope.sumGoods = response.data.data;
+				console.log(response.data.data);
+				$scope.sumGoods = response.data.data.list;
 			}, function errorCallback(response) {
 				// 请求失败执行代码
 			});
@@ -142,10 +142,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			        $http({
 						method : 'GET',
 						url : 'http://localhost:8080/gage/goods/selectByInfo',
-						params:{goodsName:"4"}
+						params:{goodsName:"4444"}
 					}).then(function successCallback(response) {
-						$scope.sumGoods = response.data.data;
-						//console.log(response.data.data);
+						$scope.sumGoods = response.data.data.list;
+						console.log(response.data.data.list);
 					}, function errorCallback(response) {
 						alert("服务器报错");
 					});
