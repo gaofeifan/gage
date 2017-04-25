@@ -50,12 +50,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 				<div class="col-sm-4 header-left">
 					<p class="log">
-						<a href="account.html">登录</a> <span>|</span><a
-							href="account.html">注册</a>
+						<a href="http://localhost:8080/gage/customer/login">登录</a> 
 					</p>
 					<div class="cart box_1">
-						<a href="http://localhost:8080/gage/order/address/orderAddress"
-							class="simpleCart_empty">地址管理</a>
+						<a href="http://localhost:8080/gage/order/index"
+							class="simpleCart_empty">订单管理</a>
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -72,10 +71,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li class=" grid"><a
 							href="http://localhost:8080/gage/goods/index">主页</a></li>
 						<li><a
-							href="http://localhost:8080/gage/shoppingCart/initShoppingCart">我的购物车</a>
+							href="http://localhost:8080/gage/shoppingCart/index">我的购物车</a>
 
 						</li>
-						<li class="grid"><a href="#">我的订单</a></li>
+						<li class="grid"><a href="http://localhost:8080/gage/order/index">我的订单</a></li>
 
 					</ul>
 				</div>
@@ -96,10 +95,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<th>数量</th>
 					<th>单价</th>
 					<th>详情</th>
-					<th>总价格</th>
+					<!-- <th>总价格</th> -->
 				</tr>
 				<tr ng-repeat="x in sumGoods">
-					<td class="ring-in"><a href="single.html" class="at-in"><img
+					<td class="ring-in"><a href="#" class="at-in"><img
 							src="<c:url value="/static/images/ce.jpg"/>"
 							class="img-responsive" alt=""></a>
 						<div class="sed">
@@ -112,8 +111,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						ng-model="currentValue" id="input_{{x.id}}_{{x.shopGoods.id}}"
 						ng-blur="goodsAll($event,x.id,x.shopGoods.id,currentValue,x.goodsNum)" />
 					<td>{{x.shopGoods.goodsCurrentPrice}}</td>
-					<td>FREE SHIPPING</td>
-					<td>{{x.shopGoods.goodsCurrentPrice*x.goodsNum}}</td>
+					<td>{{x.shopGoods.goodsDetails}}</td>
+					<!-- <td>{{x.shopGoods.goodsCurrentPrice*x.goodsNum}}</td> -->
 				</tr>
 			</table>
 			<a href="javascript:;" ng-click="toBuy()" class=" to-buy">去下单</a>
@@ -127,8 +126,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<form role="form">
 						<div class="form-group">
 							<label for="exampleInputEmail1">收件人</label><input type="text"
-								class="form-control" id="addressNameId" ng-model="orderAddress.name"
-								style="width: 150px" />
+								class="form-control" id="addressNameId" ng-model="orderAddress.name" set-Focus="" style="width: 150px" />
 						</div>
 						<div class="form-group">
 							<label for="exampleInputPassword1">联系电话：</label><input type="tel"
@@ -154,6 +152,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<script type="text/javascript">
 	var addressId = "";
 		var app = angular.module('chechoutApp', []);
+		app.directive('setFocus', function(){
+	          return function(scope, element){
+	            element[0].focus();
+	          };
+	    });
 		app.controller('checkController',function($scope, $http) {
 			$http({
 				method : 'GET',
@@ -206,7 +209,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									// 如果连接成功，延时返回给调用者  
 									console.log(response.data.data);
 									addressId = response.data.data;
-									alert(addressId);
+									//alert(addressId);
+									if(addressId!=""){
+										alert("可以去下单了");
+									}
 								},
 								function errorCallback(response) {
 									alert('连接服务器出错！');
@@ -215,6 +221,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				}
 				
 				$scope.toBuy = function(){
+					if(addressId==""){
+						alert("请先添加地址");
+						return ;
+					}
 					alert(addressId);
 				}
 				

@@ -46,12 +46,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 				<div class="col-sm-4 header-left">
 					<p class="log">
-						<a href="account.html">登录</a> <span>|</span><a
-							href="account.html">注册</a>
+						<a href="http://localhost:8080/gage/customer/login">登录</a> 
 					</p>
 					<div class="cart box_1">
 						<p>
-							<a href="http://localhost:8080/gage/order/address/orderAddress" class="simpleCart_empty">地址管理</a>
+							<a href="http://localhost:8080/gage/order/index" class="simpleCart_empty">订单管理</a>
 						</p>
 
 					</div>
@@ -68,8 +67,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-sm-8 h_menu4">
 					<ul class="memenu skyblue">
 						<li class=" grid"><a href="http://localhost:8080/gage/goods/index">主页</a></li>
-						<li><a href="http://localhost:8080/gage/shoppingCart/initShoppingCart">我的购物车</a></li>
-						<li class="grid"><a href="#">我的订单</a></li>
+						<li><a href="http://localhost:8080/gage/shoppingCart/index">我的购物车</a></li>
+						<li class="grid"><a href="http://localhost:8080/gage/order/index">我的订单</a></li>
 
 					</ul>
 				</div>
@@ -88,7 +87,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="content-top1" ng-controller="declareController">
 					<div class="col-md-3 col-md2" ng-repeat="x in sumGoods">
 						<div class="col-md1 simpleCart_shelfItem">
-							<a href="#"> <img class="img-responsive"
+							<a href="javascript:;"> <img class="img-responsive"
 								src="<c:url value="/static/images/pi.png"/>" alt="" />
 							</a>
 							<h3>
@@ -106,9 +105,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="col-md-12 column">
 								<ul class="pagination">
 									<li><a href="javascript:;" ng-click="page(1)">首页</a></li>
-									<li><a href="javascript:;" ng-click="page(1)">上一页</a></li>
-									<li><a href="javascript:;" ng-click="page(2)">当前页</a></li>
-									<li><a href="javascript:;" ng-click="page(3)">下一页</a></li>
+									<li><a href="javascript:;" ng-click="page($event,currentPage-1)">上一页</a></li>
+									<li><a href="javascript:;" ng-click="page($event,currentPage)">当前页</a></li>
+									<li><a href="javascript:;" ng-click="page($event,currentPage+1)">下一页</a></li>
 								</ul>
 							</div>
 						</div>
@@ -134,17 +133,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			}).then(function successCallback(response) {
 				console.log(response.data.data);
 				$scope.sumGoods = response.data.data.list;
+				$scope.currentPage = response.data.data.pageNo;
 			}, function errorCallback(response) {
 				// 请求失败执行代码
 			});
 			
-			 $scope.page = function(pages) {
+			 $scope.page = function($event,pages) {
 			        $http({
 						method : 'GET',
 						url : 'http://localhost:8080/gage/goods/selectByInfo',
-						params:{goodsName:"4444"}
+						params:{pageNo:pages}
 					}).then(function successCallback(response) {
 						$scope.sumGoods = response.data.data.list;
+						$scope.currentPage = response.data.data.pageNo;
 						console.log(response.data.data.list);
 					}, function errorCallback(response) {
 						alert("服务器报错");

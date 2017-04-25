@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>地址管理-shop</title>
+<title>订单管理-shop</title>
 <link href="<c:url value="/static/css/bootstrap.css"/>" rel="stylesheet" type="text/css" media="all" />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="<c:url value="/static/js/jquery.min.js"/>"></script>
@@ -37,10 +37,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 		
 			<div class="col-sm-4 header-left">		
-					<p class="log"><a href="account.html"  >登录</a>
-						<span>|</span><a  href="account.html">注册</a></p>
+					<p class="log"><a href="http://localhost:8080/gage/customer/login"  >登录</a>
+						</p>
 					<div class="cart box_1">
-						<p><a href="http://localhost:8080/gage/shoppingCart/initShoppingCart" class="simpleCart_empty">我的购物车</a></p>
+						<p><a href="http://localhost:8080/gage/shoppingCart/index" class="simpleCart_empty">我的购物车</a></p>
 
 					</div>
 					<div class="clearfix"> </div>
@@ -56,10 +56,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		 <div class="col-sm-8 h_menu4">
 				<ul class="memenu skyblue">
 					  <li class=" grid"><a  href="http://localhost:8080/gage/goods/index">主页</a></li>	
-				      <li><a  href="http://localhost:8080/gage/shoppingCart/initShoppingCart">我的购物车</a>
+				      <li><a  href="http://localhost:8080/gage/shoppingCart/index">我的购物车</a>
 				      	
 					</li>
-				    <li class="grid"><a  href="#">我的订单</a></li>
+				    <li class="grid"><a  href="http://localhost:8080/gage/order/index">我的订单</a></li>
 			
 			  </ul> 
 			</div>
@@ -71,27 +71,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </div>
 <!---->
-<div class="container" ng-app = "orderAddressApp">
-	<div class="container" ng-controller="orderAddressController">
+<div class="container">
 	<div class="row clearfix">
 		<div class="col-md-12 column">
-			<div class="btn-group">
-				 <button class="btn btn-default" type="button">新增</button> <button class="btn btn-default" type="button">修改</button> <button class="btn btn-default" type="button">删除</button>
+			
+			<div class="btn-group" style="margin-bottom: 5px;margin-top: 25px">
+				 <button class="btn btn-default" type="button">导出</button>
 			</div>
-			<table class="table table-hover">
+			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
 						<th>
-							收货人
+							编号
 						</th>
 						<th>
-							手机号
+							产品
 						</th>
 						<th>
-							添加日期
+							交付时间
 						</th>
 						<th>
-							收货地址
+							状态
 						</th>
 					</tr>
 				</thead>
@@ -108,6 +108,62 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</td>
 						<td>
 							Default
+						</td>
+					</tr>
+					<tr class="success">
+						<td>
+							1
+						</td>
+						<td>
+							TB - Monthly
+						</td>
+						<td>
+							01/04/2012
+						</td>
+						<td>
+							Approved
+						</td>
+					</tr>
+					<tr class="error">
+						<td>
+							2
+						</td>
+						<td>
+							TB - Monthly
+						</td>
+						<td>
+							02/04/2012
+						</td>
+						<td>
+							Declined
+						</td>
+					</tr>
+					<tr class="warning">
+						<td>
+							3
+						</td>
+						<td>
+							TB - Monthly
+						</td>
+						<td>
+							03/04/2012
+						</td>
+						<td>
+							Pending
+						</td>
+					</tr>
+					<tr class="info">
+						<td>
+							4
+						</td>
+						<td>
+							TB - Monthly
+						</td>
+						<td>
+							04/04/2012
+						</td>
+						<td>
+							Call in to confirm
 						</td>
 					</tr>
 				</tbody>
@@ -137,7 +193,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</ul>
 		</div>
 	</div>
-</div>
 </div>
 <!--footer-->
 <div class="footer">
