@@ -44,7 +44,7 @@
 		<!-- 加载mybatis的全局配置文件 -->
 		<property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml" />
 		<property name="typeAliasesPackage" value="com.pj.*.pojo" />
-		<property name="plugins">
+		<!-- <property name="plugins">
 			<array>
 				<bean class="com.github.pagehelper.PageHelper">
 					<property name="properties">
@@ -54,7 +54,7 @@
 					</property>
 				</bean>
 			</array>
-		</property>
+		</property> -->
 	</bean>
 
 	<!-- 批量代理对象的管理 -->

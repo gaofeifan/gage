@@ -31,7 +31,7 @@
 				goods_current_price >= #{priceMin}
 			</if>
 			<if test="priceMax != null">
-				goods_current_price &lt;= #{goodsName}
+				goods_current_price &lt;= #{priceMax}
 			</if>
 		</where> 
 			ORDER BY create_time DESC

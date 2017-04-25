@@ -10,6 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.pj.config.page.Pagination;
 import com.pj.goods.pojo.ShopGoods;
 import com.pj.goods.service.ShopGoodsService;
 import com.pj.order.mapper.OrderAddressMapper;
@@ -51,12 +54,22 @@ public class CustomerBasicMapperTest {
 	
 	@Test
 	public void test1(){
-		List<ShopGoods> list = shopGoodsService.selectByInfo2(null, null, null, null, 2);
-		System.out.println(list);
+		Pagination pagination = shopGoodsService.selectByInfo(null, null, null, null, 2);
+		System.out.println(pagination);
+	
 	}
 	@Test
 	public void test2(){
-		List<OrderAddress> list = orderAddressService.selectAll();
-		System.out.println(list);
+		Page<Object> startPage = PageHelper.startPage(1,3,true);
+		List<ShopGoods> list = shopGoodsService.selectAll();
+		Pagination pagination= new Pagination(startPage.getPageNum(), startPage.getPageSize(), 50, list);
+		System.out.println(pagination.toString());
+		System.out.println(pagination.getPageNo());
+		System.out.println(pagination.getPageSize());
+		System.out.println(pagination.getTotalPage());
+		for (Object shopGoods : pagination.getList()) {
+			System.out.println((ShopGoods)shopGoods);
+		}
+		System.out.println(startPage.getTotal());
 	}
 }
