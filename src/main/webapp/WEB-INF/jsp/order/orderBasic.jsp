@@ -40,7 +40,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<p class="log"><a href="account.html"  >登录</a>
 						<span>|</span><a  href="account.html">注册</a></p>
 					<div class="cart box_1">
-						<p><a href="http://localhost:8080/gage/shoppingCart/initShoppingCart.do" class="simpleCart_empty">我的购物车</a></p>
+						<p><a href="http://localhost:8080/gage/shoppingCart/initShoppingCart" class="simpleCart_empty">我的购物车</a></p>
 
 					</div>
 					<div class="clearfix"> </div>
@@ -55,8 +55,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 		 <div class="col-sm-8 h_menu4">
 				<ul class="memenu skyblue">
-					  <li class=" grid"><a  href="http://localhost:8080/gage/goods/index.do">主页</a></li>	
-				      <li><a  href="http://localhost:8080/gage/shoppingCart/initShoppingCart.do">我的购物车</a>
+					  <li class=" grid"><a  href="http://localhost:8080/gage/goods/index">主页</a></li>	
+				      <li><a  href="http://localhost:8080/gage/shoppingCart/initShoppingCart">我的购物车</a>
 				      	
 					</li>
 				    <li class="grid"><a  href="#">我的订单</a></li>
