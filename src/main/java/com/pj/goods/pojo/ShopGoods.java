@@ -105,6 +105,7 @@ public class ShopGoods implements Serializable {
 	 */
 	@Transient
 	private Integer goodsNum;
+	
 	private static final long serialVersionUID = 1L;
 
 	public Integer getId() {

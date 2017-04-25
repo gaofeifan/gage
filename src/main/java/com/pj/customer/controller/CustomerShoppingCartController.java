@@ -51,7 +51,7 @@ public class CustomerShoppingCartController extends BaseController{
 	 * 	@return
 	 */
 	@ApiOperation(value = "添加购物车", httpMethod = "POST", response=Map.class, notes ="添加购物车")
-	@RequestMapping(value="/saveCustomerShoppingCart",method={RequestMethod.POST})
+	@RequestMapping(value="/saveCustomerShoppingCart",method={RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody Map<String,Object> saveCustomerShoppingCart(@ModelAttribute("shoppingCartGoods")CustomerShoppingCartGoodsConcern shoppingCartGoods){
 		shoppingCartGoods.setShopCartId(getShoppingCartByCustomerId(customerId));
 		this.customerShoppingCartGoodsConcernService.insertSelective(shoppingCartGoods);
@@ -66,7 +66,7 @@ public class CustomerShoppingCartController extends BaseController{
 	 * 	@return
 	 */
 	@ApiOperation(value = "更新购物车中的商品", httpMethod = "POST", response=Map.class, notes ="更新购物车中的商品")
-	@RequestMapping(value="/updateCustomerShoppingCart",method=RequestMethod.PUT)
+	@RequestMapping(value="/updateCustomerShoppingCart",method={RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody Map<String,Object> updateCustomerShoppingCart(@RequestParam("goodsId")Integer goodsId , @RequestParam("goodsNum")Integer goodsNum){
 		int shoppingCartId = getShoppingCartByCustomerId(customerId);
 		this.customerShoppingCartGoodsConcernService.updateByPrimaryKeySelective(new CustomerShoppingCartGoodsConcern(shoppingCartId, goodsId, goodsNum));

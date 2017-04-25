@@ -55,7 +55,7 @@ public class CustomerShoppingCartGoodsConcernServiceImpl extends AbstractBaseSer
 	@Override
 	public int updateByPrimaryKeySelective(CustomerShoppingCartGoodsConcern record) {
 		Example example = new Example(CustomerShoppingCartGoodsConcern.class);
-		example.createCriteria().andCondition("shopCartId=", record.getShopCartId()).andCondition("goodsId=", record.getGoodsId());
+		example.createCriteria().andCondition("shop_cart_id =", record.getShopCartId()).andCondition("goods_id=", record.getGoodsId());
 		return this.customerShoppingCartGoodsConcernMapper.updateByExampleSelective(record, example);
 	}
 
