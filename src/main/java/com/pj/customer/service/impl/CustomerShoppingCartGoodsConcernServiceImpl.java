@@ -49,7 +49,7 @@ public class CustomerShoppingCartGoodsConcernServiceImpl extends AbstractBaseSer
 		if(list.size() != 0){
 			CustomerShoppingCartGoodsConcern goodsConcern = list.get(0);
 			goodsConcern.setGoodsNum(t.getGoodsNum() + goodsConcern.getGoodsNum());
-			return this.customerShoppingCartGoodsConcernMapper.updateByPrimaryKeySelective(goodsConcern);
+			return this.updateByPrimaryKeySelective(goodsConcern);
 		}
 		super.insertSelective(t);
 		return this.customerShoppingCartMapper.updateByPrimaryKeySelective(new CustomerShoppingCart(t.getShopCartId(), null, 1));
