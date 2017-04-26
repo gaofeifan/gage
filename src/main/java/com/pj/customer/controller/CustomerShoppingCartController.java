@@ -96,7 +96,7 @@ public class CustomerShoppingCartController extends BaseController{
 	 * 	@return
 	 */
 	@ApiOperation(value = "删除购物车中的商品", httpMethod = "DELETE", response=Map.class, notes ="查看购物车车")
-	@RequestMapping(value="/deleteCartItem",method=RequestMethod.DELETE)
+	@RequestMapping(value="/deleteCartItem",method=RequestMethod.GET)
 	public @ResponseBody Map<String,Object> deleteCartItem(@RequestParam("goodsId") Integer goodsId){
 		int cartId = getShoppingCartByCustomerId(customerId);
 		this.customerShoppingCartGoodsConcernService.delete(new CustomerShoppingCartGoodsConcern(cartId, goodsId));
