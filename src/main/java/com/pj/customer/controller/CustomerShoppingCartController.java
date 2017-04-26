@@ -67,7 +67,7 @@ public class CustomerShoppingCartController extends BaseController{
 	 * 	@return
 	 */
 	@ApiOperation(value = "更新购物车中的商品", httpMethod = "POST", response=Map.class, notes ="更新购物车中的商品")
-	@RequestMapping(value="/updateCustomerShoppingCart",method={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value="/updateCustomerShoppingCart",method={RequestMethod.POST})
 	public @ResponseBody Map<String,Object> updateCustomerShoppingCart(@RequestParam("goodsId")Integer goodsId , @RequestParam("goodsNum")Integer goodsNum){
 		int shoppingCartId = getShoppingCartByCustomerId(customerId);
 		this.customerShoppingCartGoodsConcernService.updateByPrimaryKeySelective(new CustomerShoppingCartGoodsConcern(shoppingCartId, goodsId, goodsNum));
@@ -96,7 +96,7 @@ public class CustomerShoppingCartController extends BaseController{
 	 * 	@return
 	 */
 	@ApiOperation(value = "删除购物车中的商品", httpMethod = "DELETE", response=Map.class, notes ="查看购物车车")
-	@RequestMapping(value="/deleteCartItem",method=RequestMethod.DELETE)
+	@RequestMapping(value="/deleteCartItem",method=RequestMethod.GET)
 	public @ResponseBody Map<String,Object> deleteCartItem(@RequestParam("goodsId") Integer goodsId){
 		int cartId = getShoppingCartByCustomerId(customerId);
 		this.customerShoppingCartGoodsConcernService.delete(new CustomerShoppingCartGoodsConcern(cartId, goodsId));

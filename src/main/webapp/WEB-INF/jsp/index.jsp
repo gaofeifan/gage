@@ -135,7 +135,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				$scope.sumGoods = response.data.data.list;
 				$scope.currentPage = response.data.data.pageNo;
 			}, function errorCallback(response) {
-				// 请求失败执行代码
+				alert("服务器报错");
 			});
 			
 			 $scope.page = function($event,pages) {
@@ -146,7 +146,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					}).then(function successCallback(response) {
 						$scope.sumGoods = response.data.data.list;
 						$scope.currentPage = response.data.data.pageNo;
-						console.log(response.data.data.list);
+						//console.log(response.data.data.list);
 					}, function errorCallback(response) {
 						alert("服务器报错");
 					});
