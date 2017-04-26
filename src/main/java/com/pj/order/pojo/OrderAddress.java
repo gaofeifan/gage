@@ -79,6 +79,15 @@ public class OrderAddress implements Serializable{
 	@ApiModelProperty(value = "购物车id", required = false)
 	private Integer shoppingCartId;
 	
+	
+	public OrderAddress() {}
+	
+	public OrderAddress(Integer id, Integer shoppingCartId) {
+		super();
+		this.id = id;
+		this.shoppingCartId = shoppingCartId;
+	}
+
 	public Integer getId() {
 		return id;
 	}

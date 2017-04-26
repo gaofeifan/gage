@@ -87,5 +87,18 @@ public class OrderAddressController extends BaseController {
 		return this.success(null);
 	}
 	
+	/**
+	 * 	根据购物车id查询地址
+	 *	@author 	GFF
+	 *	@date		2017年4月24日下午2:57:01	
+	 * 	@return
+	 */
+	@ApiOperation(value = "根据购物车id查询地址", httpMethod = "POST", response=Map.class, notes ="更新订单地址")
+	@RequestMapping(value="/selectOrderAddressByShoppingCartId",method=RequestMethod.POST)
+	public @ResponseBody Map<String , Object> selectOrderAddressByShoppingCartId(@RequestParam("shoppingCartId")Integer shoppingCartId){
+		List<OrderAddress> list = this.orderAddressService.select(new OrderAddress(null, shoppingCartId));
+		return this.success(list.size() != 0 ? list.get(0) : null);
+	}
+	
 	
 }
