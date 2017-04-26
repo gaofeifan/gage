@@ -67,7 +67,7 @@ public class CustomerShoppingCartController extends BaseController{
 	 * 	@return
 	 */
 	@ApiOperation(value = "更新购物车中的商品", httpMethod = "POST", response=Map.class, notes ="更新购物车中的商品")
-	@RequestMapping(value="/updateCustomerShoppingCart",method={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value="/updateCustomerShoppingCart",method={RequestMethod.POST})
 	public @ResponseBody Map<String,Object> updateCustomerShoppingCart(@RequestParam("goodsId")Integer goodsId , @RequestParam("goodsNum")Integer goodsNum){
 		int shoppingCartId = getShoppingCartByCustomerId(customerId);
 		this.customerShoppingCartGoodsConcernService.updateByPrimaryKeySelective(new CustomerShoppingCartGoodsConcern(shoppingCartId, goodsId, goodsNum));

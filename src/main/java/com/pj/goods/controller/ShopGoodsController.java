@@ -78,7 +78,7 @@ public class ShopGoodsController extends BaseController {
 	@RequestMapping(value="/selectByInfo",method=RequestMethod.GET)
 	@ResponseBody
 	@ApiOperation(value = "根据条件查询", httpMethod = "GET", response=Map.class, notes ="根据条件查询")
-	public Map<String,Object> selectByInfo(	@ModelAttribute ShopGoods shopGoods , @RequestParam(value="pageNo",required=false) Integer pageNo
+	public Map<String,Object> selectByInfo(	@ModelAttribute ShopGoods shopGoods , @RequestParam(value="pageNo",required=false,defaultValue="1") Integer pageNo
 										 /*@PathVariable("goodsName")String goodsName,
 									       @PathVariable("goodsType")Integer goodsType,
 									       @PathVariable("priceMin")Integer priceMin,
