@@ -1,4 +1,4 @@
-package com.pj.config.converter;
+package com.pj.config.web.converter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

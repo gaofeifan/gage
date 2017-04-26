@@ -131,11 +131,16 @@
 	FROM
 		shop_goods shopGoods
 	INNER JOIN customer_shoppingcart_goods_concern shoppingcartGoods ON shoppingcartGoods.goods_id = shopGoods.id
-	WHERE
-		shoppingcartGoods.shop_cart_id = #{id}
-		AND shopGoods.id IN 
-		<foreach collection="goodsIds" index="index" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
+	<where>
+		<if test="id != null">
+			shoppingcartGoods.shop_cart_id = #{id}
+		</if>
+		<if test="goodsIds != null">
+			AND shopGoods.id IN 
+			<foreach collection="goodsIds" index="index" item="item" open="(" separator="," close=")">
+	            #{item}
+	        </foreach>
+		</if>
+	</where>
 	</select>	
 </mapper>

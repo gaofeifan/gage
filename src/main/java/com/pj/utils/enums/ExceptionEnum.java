@@ -9,8 +9,8 @@ package com.pj.utils.enums;
  */
 public enum ExceptionEnum {
 
-	HANDLE_EXCEPTION("400" , "操作资源异常");
-	
+	HANDLE_EXCEPTION("400" , "操作资源异常"),
+	USERNAME_OR_PASSWORD_WRONG("401" ,"用户名或密码错误");
 	private String code;
 	private String msg;
 	

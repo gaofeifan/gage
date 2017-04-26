@@ -4,16 +4,22 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.pj.config.base.BaseController;
 import com.pj.customer.pojo.CustomerBasic;
 import com.pj.customer.service.CustomerBasicService;
+import com.pj.utils.enums.ExceptionEnum;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -80,8 +86,25 @@ public class CustomerBasicController extends BaseController {
 	}
 	
 	@RequestMapping(value="login",method=RequestMethod.GET)
-	public String customerLogin(){
-		return "login";
+	public ModelAndView customerLogin(String username , String passwords , HttpServletRequest request){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("login");
+		if(StringUtils.isBlank(passwords) || StringUtils.isBlank(passwords) ){
+		}
+		List<CustomerBasic> list = this.customerBasicService.select(new CustomerBasic(username));
+		if(list.size() == 0){
+			view.addObject(ExceptionEnum.USERNAME_OR_PASSWORD_WRONG.getCode(), ExceptionEnum.USERNAME_OR_PASSWORD_WRONG.getMsg());
+		}else{
+			CustomerBasic customerBasic = list.get(0);
+			if(customerBasic.getPassword().equals(DigestUtils.md5Hex(passwords))){
+				HttpSession session = request.getSession();
+				session.setAttribute("customerId",customerBasic.getId() );
+				view.setViewName("login");
+				view.addObject("200", "登录成功");
+				return view;
+			}
+		}
+		return view;
 	}
 	
 }

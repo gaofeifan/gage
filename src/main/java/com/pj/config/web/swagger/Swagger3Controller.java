@@ -1,4 +1,4 @@
-package com.pj.config.swagger;
+package com.pj.config.web.swagger;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

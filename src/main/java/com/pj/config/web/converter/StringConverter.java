@@ -1,4 +1,4 @@
-package com.pj.config.converter;
+package com.pj.config.web.converter;
 
 import org.springframework.core.convert.converter.Converter;
 /**

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -18,6 +19,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class OrderBasic implements Serializable {
     @Id
     @ApiModelProperty(value = "id", required = false)
+    @GeneratedValue(generator = "JDBC")
 	private Integer id;
 
     /**

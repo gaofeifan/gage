@@ -1,4 +1,4 @@
-package com.pj.config.exception;
+package com.pj.config.web.exception;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -79,7 +79,16 @@ public class CustomerBasic implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
+    
+    public CustomerBasic() {}
+    
+	public CustomerBasic(String username) {
+		this.username = username;
+	}
+
+
+
+	public Integer getId() {
         return id;
     }
 

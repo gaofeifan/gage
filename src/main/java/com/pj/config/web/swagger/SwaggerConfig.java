@@ -1,4 +1,4 @@
-package com.pj.config.swagger;
+package com.pj.config.web.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
