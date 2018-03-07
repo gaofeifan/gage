@@ -1,11 +1,12 @@
 package com.pj.config.web.interceptor;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
  *	@author		GFF
@@ -14,39 +15,36 @@ import org.springframework.web.servlet.ModelAndView;
  *	@parameter	
  *  @since		1.8
  */
-public class LoginInterceptor implements HandlerInterceptor {
+public class LoginInterceptor extends HandlerInterceptorAdapter  {
 
-	private String outsideOfficeHoursPage;
+	private List<String> excludedUrls;
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		String requestUri = request.getRequestURI();
+ 		for (String uri : excludedUrls) {
+			if (requestUri.endsWith(uri)) {
+				return true;
+			}
+		}
 		HttpSession session = request.getSession();
 		Object object = session.getAttribute("customerId");
 		if(object != null){
 			return true;
 		}
-		response.sendRedirect(outsideOfficeHoursPage);
+//		 request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response); 
+		 response.sendRedirect("http://Localhost:8080/gage/customer/login");
 		return false;
 	}
 
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-
+	public List<String> getExcludedUrls() {
+		return excludedUrls;
 	}
 
-	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-			throws Exception {
-
+	public void setExcludedUrls(List<String> excludedUrls) {
+		this.excludedUrls = excludedUrls;
 	}
-
-	public String getOutsideOfficeHoursPage() {
-		return outsideOfficeHoursPage;
-	}
-
-	public void setOutsideOfficeHoursPage(String outsideOfficeHoursPage) {
-		this.outsideOfficeHoursPage = outsideOfficeHoursPage;
-	}
+	
+	
 
 }

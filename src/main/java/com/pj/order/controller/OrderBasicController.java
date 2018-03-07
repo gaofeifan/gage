@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pj.config.base.BaseController;
 import com.pj.config.poi.Excel;
-import com.pj.customer.controller.CustomerShoppingCartController;
-import com.pj.customer.pojo.CustomerShoppingCart;
 import com.pj.customer.service.CustomerShoppingCartService;
 import com.pj.order.pojo.OrderBasic;
 import com.pj.order.service.OrderBasicService;
@@ -51,6 +49,7 @@ public class OrderBasicController extends BaseController {
 	@Resource
 	private CustomerShoppingCartService customerShoppingCartService;
 	
+	
 	@RequestMapping(value="index",method = RequestMethod.GET)
 	public String orderInit(){
 		return "order/orderBasic";
@@ -58,8 +57,8 @@ public class OrderBasicController extends BaseController {
 	
 	@ApiOperation(value = "添加订单", httpMethod = "POST", response=Map.class, notes ="添加订单")
 	@RequestMapping(value="/saveOrderBasic",method={RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody Map<String,Object> saveOrderBasic(OrderBasic orderBasic){
-		int cartId = getShoppingCartByCustomerId(CustomerShoppingCartController.customerId);
+	public @ResponseBody Map<String,Object> saveOrderBasic(OrderBasic orderBasic ,HttpServletRequest request){
+		int cartId = this.getShoppingCartByCustomerId(request);
 		this.orderBasicService.insertSelective(orderBasic,cartId);
 		return this.success(null);
 	}
@@ -102,23 +101,4 @@ public class OrderBasicController extends BaseController {
 			}
 		}
 	}
-	
-	/**
-	 * 	查询用户购物车 (不存在则创建)
-	 *	@author 	GFF
-	 *	@date		2017年4月25日上午11:52:01	
-	 * 	@param customerId
-	 * 	@return
-	 */
-	public int getShoppingCartByCustomerId(Integer customerId){
-		List<CustomerShoppingCart> list = this.customerShoppingCartService.select(new CustomerShoppingCart(null, customerId));
-		if(list.size() == 0){
-			CustomerShoppingCart cart = new CustomerShoppingCart();
-			cart.setCustomerId(customerId);
-			this.customerShoppingCartService.insertSelective(cart);
-			return cart.getId();
-		}
-		return list.get(0).getId();
-	}
-	
 }

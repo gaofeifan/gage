@@ -46,6 +46,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 				<div class="col-sm-4 header-left">
 					<p class="log">
+						
 						<a href="http://localhost:8080/gage/customer/login">登录</a> 
 					</p>
 					<div class="cart box_1">
@@ -78,7 +79,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 
-	</div>
 	<!--content-->
 	<div class="content" ng-app="declare">
 		<div class="container">

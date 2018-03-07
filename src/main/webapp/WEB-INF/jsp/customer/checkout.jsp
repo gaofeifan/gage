@@ -84,8 +84,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 
-	</div>
-	<!---->
 	<div class="container" ng-app="chechoutApp">
 		<div class="check-out" ng-controller="checkController">
 			<h1>购物车</h1>

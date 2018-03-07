@@ -1,6 +1,7 @@
 package com.pj.goods.pojo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -56,14 +57,14 @@ public class ShopGoods implements Serializable {
 	 */
 	@Column
 	@ApiModelProperty(value = "商品原价", required = false)
-	private Double goodsOriginalCost;
+	private BigDecimal goodsOriginalCost;
 
 	/**
 	 * 商品现价
 	 */
 	@Column
 	@ApiModelProperty(value = "商品现价", required = false)
-	private Double goodsCurrentPrice;
+	private BigDecimal goodsCurrentPrice;
 
 	/**
 	 * 商品详情
@@ -156,19 +157,19 @@ public class ShopGoods implements Serializable {
 		this.goodsBarcode = goodsBarcode;
 	}
 
-	public Double getGoodsOriginalCost() {
+	public BigDecimal getGoodsOriginalCost() {
 		return goodsOriginalCost;
 	}
 
-	public void setGoodsOriginalCost(Double goodsOriginalCost) {
+	public void setGoodsOriginalCost(BigDecimal goodsOriginalCost) {
 		this.goodsOriginalCost = goodsOriginalCost;
 	}
 
-	public Double getGoodsCurrentPrice() {
+	public BigDecimal getGoodsCurrentPrice() {
 		return goodsCurrentPrice;
 	}
 
-	public void setGoodsCurrentPrice(Double goodsCurrentPrice) {
+	public void setGoodsCurrentPrice(BigDecimal goodsCurrentPrice) {
 		this.goodsCurrentPrice = goodsCurrentPrice;
 	}
 

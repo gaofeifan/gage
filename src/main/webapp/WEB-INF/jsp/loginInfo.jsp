@@ -22,6 +22,49 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="<c:url value="/static/js/ajax.form.js"/>"> </script>
 <script type="text/javascript" src="<c:url value="/static/js/jquery.min.js"/>"> </script>
 <script type="text/javascript" src="<c:url value="/static/js/jquery-1.8.3.min.js"/>"> </script>
+<script type="text/javascript">
+function entlogin(form){
+	//if ($("#loginForm").valid()){
+		$.ajax({
+			type: 'GET',
+			url: $("#"+form).attr("action"),
+			data: $("#"+form).serialize(),
+			dataType:'json',
+			success: function(data){
+				switch(data.code){
+					case 0:
+						getAlertNoAuto(data.mess,'登录',2);
+						refleshImageCode();
+						$("#code").val("");
+						break;
+					case 1:
+//							if (lasturl != null && lasturl.length > 0){
+//								alert("lastur="+lasturl)
+//								document.location = lasturl;		
+//							}else 
+						document.location = '<c:url value="/"/>';
+						break;
+					case 2:
+						getAlert(data.mess,'登录',2);
+							refleshImageCode();
+						$("#code").val("");
+						break;
+				}
+			},
+			error:function(data){
+			}
+		});	
+}
+function LoginSubmit()
+{ 
+    if (event.keyCode == 13) 
+    { 
+        event.keyCode = 9;
+        event.returnValue = false;
+        entlogin('loginForm');
+    } 
+} 
+</script>
 <!-- slide -->
 </head>
 <body>
@@ -62,13 +105,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="account_grid">
 			   <div class="col-md-6 login-right">
 				<form action="${ pageContext.request.contextPath }/customer/customerLogin" method="GET" id="loginForm" name="loginForm">
+
 					<span>用户名 <font color="red">${msg }</font> </span>
 					<input type="text" id="username" name="username" value="" placeholder="请输入用户名"> 
+				
 					<span>密　码</span>
 					<input type="text" id="username" name="password" value=""  placeholder="请输入密码"> 
 					<div class="word-in">
 				  		<a class="forgot" href="#"></a>
-				 		 <input type="submit" value="Login" />
+				 		 <input type="button" value="Login" onclick="entlogin('loginForm')"/>
 				  	</div>
 			    </form>
 			   </div>	

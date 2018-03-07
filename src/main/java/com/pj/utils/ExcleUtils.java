@@ -167,8 +167,8 @@ public class ExcleUtils {
 			row.createCell(2).setCellValue(shopGood.get(i).getGoodsNum());
 			row.createCell(3).setCellValue(shopGood.get(i).getGoodsType());
 			row.createCell(4).setCellValue(shopGood.get(i).getGoodsBarcode());
-			row.createCell(5).setCellValue(shopGood.get(i).getGoodsOriginalCost());
-			row.createCell(6).setCellValue(shopGood.get(i).getGoodsCurrentPrice());
+			row.createCell(5).setCellValue(shopGood.get(i).getGoodsOriginalCost().doubleValue());
+			row.createCell(6).setCellValue(shopGood.get(i).getGoodsCurrentPrice().doubleValue());
 			row.createCell(7).setCellValue(shopGood.get(i).getGoodsDetails());
 			
 		}

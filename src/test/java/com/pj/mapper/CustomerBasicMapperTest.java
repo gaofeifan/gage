@@ -1,9 +1,12 @@
 package com.pj.mapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -59,6 +62,12 @@ public class CustomerBasicMapperTest {
 	
 	}
 	@Test
+	public void testMd5(){
+		String string = DigestUtils.md5Hex("1234");
+		System.out.println(string);
+		
+	}
+	@Test
 	public void test2(){
 		Page<Object> startPage = PageHelper.startPage(1,3,true);
 		List<ShopGoods> list = shopGoodsService.selectAll();
@@ -71,5 +80,19 @@ public class CustomerBasicMapperTest {
 			System.out.println((ShopGoods)shopGoods);
 		}
 		System.out.println(startPage.getTotal());
+	}
+	
+	@Test
+	public void test3(){
+		String name="gao1@qq.com";                                                                        
+		String password="8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";               
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("username", name);
+		map.put("password", password);
+		map.put("sku_id", "4008976022329");
+		map.put("ware_house_id", "JPA");
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		
 	}
 }

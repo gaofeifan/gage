@@ -16,6 +16,18 @@
 		http://www.springframework.org/schema/task
    		http://www.springframework.org/schema/task/spring-task-4.0.xsd">
 
+	<!-- 定时器开关 -->
+	<task:annotation-driven/>
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg index="0" value="UTF-8"></constructor-arg>
+			</bean>
+			<bean class="com.pj.config.web.converter.CallbackMappingJackson2HttpMessageConverter">
+				<property name="callbackName" value="callback"></property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 
 	<!-- swagger -->
 	<bean class="com.pj.config.web.swagger.SwaggerConfig" />
@@ -23,21 +35,32 @@
 	<context:component-scan base-package="com.pj.*" />
 	<!-- 注解驱动(包括注解映射器和注解适配器) -->
 	<mvc:annotation-driven conversion-service="conversionService" />
-	<mvc:default-servlet-handler />
 	<!-- 静态资源访问配置 -->
+	<mvc:default-servlet-handler/>
 	<mvc:resources mapping="/swagger/**" location="/swagger/" />
-	<!-- <mvc:interceptors>  
-            <mvc:interceptor>  
-                <mvc:mapping path="/**"/>  
-                <mvc:mapping path="/WEB-INF/jsp/**"/>
-                <bean class="com.pj.config.web.interceptor.LoginInterceptor">
-                	 <property name="outsideOfficeHoursPage">  
-                  	  <value>http://localhost:8080/gage/customer/login  
-                    </value>  
-                </property>  
-                </bean>  
-            </mvc:interceptor>  
-        </mvc:interceptors>   -->
+	<mvc:resources mapping="/static/css/**" location="/static/css/" />
+	<mvc:resources mapping="/static/images/**" location="/static/images/" />
+	<mvc:resources mapping="/static/fonts/**" location="/static/fonts/" />
+	<mvc:resources mapping="/static/js/**" location="/static/js/" />
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/**/*.css"/>
+			<mvc:exclude-mapping path="/**/images/*"/>
+			<mvc:exclude-mapping path="/**/*.js"/>
+			<mvc:exclude-mapping path="/**/fonts/*"/>
+			<bean class="com.pj.config.web.interceptor.LoginInterceptor">
+				<property name="excludedUrls">
+					<list>
+						<value>/selectByInfo</value>
+						<value>/login</value>
+						<value>/index</value>
+						<value>/customerLogin</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>  
 	<!-- 视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -71,4 +94,9 @@
 			<value>4096</value>
 		</property>
 	</bean>
+	
+	<task:scheduled-tasks>
+		<!-- 每天上午十点触发 -->
+        <task:scheduled ref="pushNotificationWeChatTimer" method="pushTheMessageToTheApprover" cron="0 0 10 * * ?"/>
+    </task:scheduled-tasks>
 </beans>

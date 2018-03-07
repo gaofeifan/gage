@@ -1,9 +1,9 @@
 package com.pj.customer.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -51,10 +51,10 @@ public class CustomerShoppingCartController extends BaseController{
 	 * 	@param customerShoppingCart
 	 * 	@return
 	 */
-	@ApiOperation(value = "添加购物车", httpMethod = "POST", response=Map.class, notes ="添加购物车")
+	@ApiOperation(value = "给购物车添加商品", httpMethod = "POST", response=Map.class, notes ="添加购物车")
 	@RequestMapping(value="/saveCustomerShoppingCart",method={RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody Map<String,Object> saveCustomerShoppingCart(@ModelAttribute("shoppingCartGoods")CustomerShoppingCartGoodsConcern shoppingCartGoods){
-		shoppingCartGoods.setShopCartId(getShoppingCartByCustomerId(customerId));
+	public @ResponseBody Map<String,Object> saveCustomerShoppingCart(@ModelAttribute("shoppingCartGoods")CustomerShoppingCartGoodsConcern shoppingCartGoods , HttpServletRequest request){
+		shoppingCartGoods.setShopCartId(getShoppingCartByCustomerId(request));
 		this.customerShoppingCartGoodsConcernService.insertSelective(shoppingCartGoods);
 		return this.success(null);
 	}
@@ -68,8 +68,8 @@ public class CustomerShoppingCartController extends BaseController{
 	 */
 	@ApiOperation(value = "更新购物车中的商品", httpMethod = "POST", response=Map.class, notes ="更新购物车中的商品")
 	@RequestMapping(value="/updateCustomerShoppingCart",method={RequestMethod.POST})
-	public @ResponseBody Map<String,Object> updateCustomerShoppingCart(@RequestParam("goodsId")Integer goodsId , @RequestParam("goodsNum")Integer goodsNum){
-		int shoppingCartId = getShoppingCartByCustomerId(customerId);
+	public @ResponseBody Map<String,Object> updateCustomerShoppingCart(@RequestParam("goodsId")Integer goodsId , @RequestParam("goodsNum")Integer goodsNum ,HttpServletRequest request){
+		int shoppingCartId = getShoppingCartByCustomerId(request);
 		this.customerShoppingCartGoodsConcernService.updateByPrimaryKeySelective(new CustomerShoppingCartGoodsConcern(shoppingCartId, goodsId, goodsNum));
 		return this.success(null);
 	}
@@ -81,9 +81,9 @@ public class CustomerShoppingCartController extends BaseController{
 	 * 	@return
 	 */
 	@ApiOperation(value = "查看购物车", httpMethod = "GET", response=Map.class, notes ="查看购物车车")
-	@RequestMapping(value="/selectCustomerShoppingCartAll",method=RequestMethod.GET)
-	public @ResponseBody Map<String,Object> selectCustomerShoppingCartAll(){
-		int id = getShoppingCartByCustomerId(customerId);
+	@RequestMapping(value="/selectCustomerShoppingCartAll",method=RequestMethod.GET )
+	public @ResponseBody Map<String,Object> selectCustomerShoppingCartAll(HttpServletRequest request){
+		int id = getShoppingCartByCustomerId(request);
 		CustomerShoppingCart shoppingCart = this.customerShoppingCartService.selectByPrimaryKey(id);
 		return this.success(shoppingCart);
 	}
@@ -97,8 +97,8 @@ public class CustomerShoppingCartController extends BaseController{
 	 */
 	@ApiOperation(value = "删除购物车中的商品", httpMethod = "DELETE", response=Map.class, notes ="查看购物车车")
 	@RequestMapping(value="/deleteCartItem",method=RequestMethod.GET)
-	public @ResponseBody Map<String,Object> deleteCartItem(@RequestParam("goodsId") Integer goodsId){
-		int cartId = getShoppingCartByCustomerId(customerId);
+	public @ResponseBody Map<String,Object> deleteCartItem(@RequestParam("goodsId") Integer goodsId ,HttpServletRequest request){
+		int cartId = getShoppingCartByCustomerId(request);
 		this.customerShoppingCartGoodsConcernService.delete(new CustomerShoppingCartGoodsConcern(cartId, goodsId));
 		return this.success(null);
 	}
@@ -113,28 +113,10 @@ public class CustomerShoppingCartController extends BaseController{
 	@RequestMapping(value="/selectByShoppingCartAndGoodsIds",method={RequestMethod.GET})
 	@ResponseBody
 	@ApiOperation(value = "根据id查询购物车", httpMethod = "GET", response=Map.class, notes ="根据id查询购物车")
-	public Map<String,Object> selectByShoppingCartAndGoodsIds(@RequestParam(value="ids") Integer[] ids){
-		int cartId = getShoppingCartByCustomerId(customerId);
+	public Map<String,Object> selectByShoppingCartAndGoodsIds(@RequestParam(value="ids") Integer[] ids , HttpServletRequest request){
+		int cartId = getShoppingCartByCustomerId(request);
 		CustomerShoppingCart shoppingCart = this.customerShoppingCartService.selectByShoppingCartAndGoodsIds(cartId,ids);
 		return this.success(shoppingCart);
-	}
-	
-	/**
-	 * 	查询用户购物车 (不存在则创建)
-	 *	@author 	GFF
-	 *	@date		2017年4月25日上午11:52:01	
-	 * 	@param customerId
-	 * 	@return
-	 */
-	public int getShoppingCartByCustomerId(Integer customerId){
-		List<CustomerShoppingCart> list = this.customerShoppingCartService.select(new CustomerShoppingCart(null, customerId));
-		if(list.size() == 0){
-			CustomerShoppingCart cart = new CustomerShoppingCart();
-			cart.setCustomerId(customerId);
-			this.customerShoppingCartService.insertSelective(cart);
-			return cart.getId();
-		}
-		return list.get(0).getId();
 	}
 	
 }

@@ -1,6 +1,7 @@
 package com.pj.order.pojo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,6 +18,9 @@ import io.swagger.annotations.ApiModelProperty;
  *	@parameter	
  *  @since		1.8
  */
+/**
+ *
+ */
 @Table(name="order_goods")
 public class OrderGoods implements Serializable {
 	
@@ -30,28 +34,28 @@ public class OrderGoods implements Serializable {
 	 */
 	@Column
 	@ApiModelProperty(value = "订单id", required = false)
-	private Integer order_id;
+	private Integer orderId;
 
 	/**
 	 * 	商品id
 	 */
 	@Column
 	@ApiModelProperty(value = "商品id", required = false)
-	private Integer goods_id;
+	private Integer goodsId;
 	
 	/**
 	 * 	商品数量
 	 */
 	@Column
 	@ApiModelProperty(value = "商品数量", required = false)
-	private Integer goods_num;
+	private Integer goodsNum;
 	
 	/**
 	 * 	商品价格
 	 */
 	@Column
 	@ApiModelProperty(value = "商品价格", required = false)
-	private Double goods_price;
+	private BigDecimal goodsPrice;
 	
 	/**
 	 * 	创建时间
@@ -68,23 +72,21 @@ public class OrderGoods implements Serializable {
 	private Date modifyTime;
 	
 	private static final long serialVersionUID = 1L;
-
 	
 	public OrderGoods() {}
 	
-
-	public OrderGoods(Integer id, Integer order_id, Integer goods_id, Integer goods_num) {
-		this.order_id = order_id;
-		this.goods_id = goods_id;
-		this.goods_num = goods_num;
+	public OrderGoods(Integer id, Integer orderId, Integer goodsId, Integer goodsNum) {
+		this.orderId = orderId;
+		this.goodsId = goodsId;
+		this.goodsNum = goodsNum;
 	}
 
-	public OrderGoods(Integer id, Integer order_id, Integer goods_id, Integer goods_num, Double goods_price) {
+	public OrderGoods(Integer id, Integer orderId, Integer goodsId, Integer goodsNum, BigDecimal goodsPrice) {
 		this.id = id;
-		this.order_id = order_id;
-		this.goods_id = goods_id;
-		this.goods_num = goods_num;
-		this.goods_price = goods_price;
+		this.orderId = orderId;
+		this.goodsId = goodsId;
+		this.goodsNum = goodsNum;
+		this.goodsPrice = goodsPrice;
 	}
 	
 	public Integer getId() {
@@ -95,36 +97,36 @@ public class OrderGoods implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getOrder_id() {
-		return order_id;
+	public Integer getOrderId() {
+		return orderId;
 	}
 
-	public void setOrder_id(Integer order_id) {
-		this.order_id = order_id;
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
 	}
 
-	public Integer getGoods_id() {
-		return goods_id;
+	public Integer getGoodsId() {
+		return goodsId;
 	}
 
-	public void setGoods_id(Integer goods_id) {
-		this.goods_id = goods_id;
+	public void setGoodsId(Integer goodsId) {
+		this.goodsId = goodsId;
 	}
 
-	public Integer getGoods_num() {
-		return goods_num;
+	public Integer getGoodsNum() {
+		return goodsNum;
 	}
 
-	public void setGoods_num(Integer goods_num) {
-		this.goods_num = goods_num;
+	public void setGoodsNum(Integer goodsNum) {
+		this.goodsNum = goodsNum;
 	}
 
-	public Double getGoods_price() {
-		return goods_price;
+	public BigDecimal getGoodsPrice() {
+		return goodsPrice;
 	}
 
-	public void setGoods_price(Double goods_price) {
-		this.goods_price = goods_price;
+	public void setGoodsPrice(BigDecimal goodsPrice) {
+		this.goodsPrice = goodsPrice;
 	}
 
 	public Date getCreateTime() {
@@ -145,11 +147,7 @@ public class OrderGoods implements Serializable {
 
 	@Override
 	public String toString() {
-		return "OrderGoods [id=" + id + ", order_id=" + order_id + ", goods_id=" + goods_id + ", goods_num=" + goods_num
-				+ ", goods_price=" + goods_price + ", createTime=" + createTime + ", modifyTime=" + modifyTime + "]";
+		return "OrderGoods [id=" + id + ", order_id=" + orderId + ", goods_id=" + goodsId + ", goods_num=" + goodsNum
+				+ ", goods_price=" + goodsPrice + ", createTime=" + createTime + ", modifyTime=" + modifyTime + "]";
 	}
-	
-	
-	
-	
 }
